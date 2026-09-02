@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { skills } from "@/lib/skills";
 
 export default function Home() {
   return (
@@ -23,6 +24,41 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="px-6 py-24 max-w-3xl mx-auto w-full border-t border-ink/10">
+        <h2 className="text-2xl font-semibold text-ink mb-12 text-center">Skills</h2>
+
+        <div className="flex flex-col gap-12">
+          {skills.map((group) => (
+            <div key={group.category}>
+              <h3 className="font-mono text-sm text-ink-secondary mb-6 text-center">
+                {group.category}
+              </h3>
+              <div className="flex flex-wrap justify-center gap-6">
+                {group.items.map((skill) => {
+                  const Icon = skill.icon;
+                  return (
+                    <div key={skill.name} className="flex flex-col items-center gap-2">
+                      <div
+                        className={
+                          group.category === "Currently Learning"
+                            ? "w-14 h-14 rounded-2xl flex items-center justify-center border-2 border-accent"
+                            : "w-14 h-14 rounded-2xl flex items-center justify-center bg-ink/5"
+                        }
+                      >
+                        <Icon className="w-6 h-6" style={{ color: skill.color }} />
+                      </div>
+                      <span className="text-xs text-ink-secondary text-center">
+                        {skill.name}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section id="contact" className="px-6 py-24 flex flex-col items-center text-center gap-6 border-t border-ink/10">
         <h2 className="text-2xl font-semibold text-ink">Let&apos;s connect</h2>
         <p className="text-ink-secondary max-w-sm">
@@ -38,7 +74,7 @@ export default function Home() {
             GitHub
           </a>
           <a
-            href="https://www.linkedin.com/in/timothy-sheu-6b1719220/"
+            href="https://linkedin.com/in/yourusername"
             target="_blank"
             rel="noopener noreferrer"
             className="h-12 px-6 flex items-center justify-center rounded-full border border-ink/10 text-ink font-medium hover:border-accent transition-colors"
