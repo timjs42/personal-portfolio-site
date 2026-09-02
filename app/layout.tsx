@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Timothy Sheu — Full-Stack Developer",
+  title: "Timothy Sheu - Full-Stack Developer",
   description: "Portfolio and projects by Timothy Sheu, a full-stack developer working with React, Next.js, and TypeScript.",
 };
 

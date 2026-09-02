@@ -20,6 +20,9 @@ export default function Nav() {
           <Link href="/projects" className="text-sm text-ink hover:text-accent transition-colors">
             Projects
           </Link>
+          <Link href="/#mentions" className="text-sm text-ink hover:text-accent transition-colors">
+            Mentions
+          </Link>
           <Link href="/#contact" className="text-sm text-ink hover:text-accent transition-colors">
             Contact
           </Link>
@@ -67,6 +70,9 @@ export default function Nav() {
           </Link>
           <Link href="/projects" onClick={() => setIsOpen(false)} className="text-sm text-ink hover:text-accent transition-colors">
             Projects
+          </Link>
+          <Link href="/#mentions" onClick={() => setIsOpen(false)} className="text-sm text-ink hover:text-accent transition-colors">
+            Mentions
           </Link>
           <Link href="/#contact" onClick={() => setIsOpen(false)} className="text-sm text-ink hover:text-accent transition-colors">
             Contact
