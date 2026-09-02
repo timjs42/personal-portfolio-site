@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Timothy Sheu - Portfolio
+
+My personal portfolio site, built from scratch to showcase my projects and skills as I work toward full-stack developer roles.
+
+**Live site:** [timothysheu.com](https://timothysheu.com)
+
+## Built With
+
+- [Next.js](https://nextjs.org/) (App Router) + TypeScript
+- [Tailwind CSS v4](https://tailwindcss.com/)
+- [Vercel](https://vercel.com/) for hosting/deployment
+
+## Features
+
+- Responsive design with a custom design token system (colors, typography)
+- Dynamic project pages generated from a typed data model
+- Icon-based skills section using real brand logos, grouped by category
+- Accessible navigation (aria-labels, keyboard navigation, mobile menu)
+- Custom Open Graph image and favicon for link sharing
+- Custom domain
 
 ## Getting Started
 
-First, run the development server:
+Clone the repo and install dependencies:
+
+```bash
+git clone https://github.com/timjs42/personal-portfolio-site.git
+cd personal-portfolio-site
+npm install
+```
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view it locally.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/                  # Pages and routes (App Router)
+  page.tsx             # Homepage (hero, skills, contact)
+  projects/            # Projects listing + dynamic [slug] detail pages
+components/           # Reusable UI (Nav, Footer)
+lib/                   # Typed data (projects.ts, skills.ts)
+```
 
-## Learn More
+## What I Learned
 
-To learn more about Next.js, take a look at the following resources:
+This project was built as a hands-on way to learn full-stack development end to end, rather than just following a tutorial. Some of what that involved:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Next.js App Router fundamentals — file-based routing, dynamic routes (`[slug]`), and the Server vs. Client Component split
+- Managing structured content with TypeScript types instead of hardcoding it into components
+- Debugging real dependency issues (e.g. a library removing icons I relied on) rather than assuming a fix would always work as expected
+- Building genuinely responsive, accessible UI — not just "looks fine on desktop"
+- Git workflow: writing detailed, conventional commit messages as a record of how the project was actually built
+- Deploying and connecting a custom domain via Vercel
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Contact
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Reach out via [LinkedIn](https://www.linkedin.com/in/timothy-sheu-6b1719220/) or check out my other work on [GitHub](https://github.com/timjs42).
