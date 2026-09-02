@@ -14,7 +14,7 @@ export default function Home() {
           </h1>
 
           <p className="text-lg text-ink-secondary max-w-md">
-            [Placeholder bio]
+            I'm a web developer currently pursuing a Master's in Applied Data Science and AI, with a passion for building clean, functional software.
           </p>
 
           <Link href="/projects" className="mt-4 h-12 px-6 flex items-center justify-center rounded-full bg-ink text-paper font-medium transition-transform duration-200 hover:scale-105 hover:-rotate-2">
