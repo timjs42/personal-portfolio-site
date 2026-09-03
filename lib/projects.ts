@@ -17,4 +17,12 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/timjs42/Med-Student-Site",
     tags: ["HTML", "CSS", "JavaScript"],
   },
+  {
+    slug: "cancer-diagnosis",
+    title: "Tumor Marker Cancer Classifier",
+    description:
+      "A Gaussian Naive Bayes classifier that ranks candidate cancer types and stages from tumor marker levels, packaged as a tested Python library with a CLI and a lightweight web demo.",
+    githubUrl: "https://github.com/timjs42/CancerDiagnosis",
+    tags: ["Python", "Naive Bayes", "pytest"],
+  },
 ];
