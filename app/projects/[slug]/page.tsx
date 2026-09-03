@@ -39,14 +39,16 @@ export default async function ProjectDetail({
       <p className="text-ink-secondary text-lg mb-8">{project.description}</p>
 
       <div className="flex gap-4">
-        <a
-          href={project.liveUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="h-12 px-6 flex items-center justify-center rounded-full bg-ink text-paper font-medium transition-transform duration-200 hover:scale-105 hover:-rotate-2"
-        >
-          View live site
-        </a>
+        {project.liveUrl && (
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="h-12 px-6 flex items-center justify-center rounded-full bg-ink text-paper font-medium transition-transform duration-200 hover:scale-105 hover:-rotate-2"
+          >
+            View live site
+          </a>
+        )}
         <a
           href={project.githubUrl}
           target="_blank"

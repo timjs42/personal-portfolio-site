@@ -2,7 +2,7 @@ export type Project = {
   slug: string;
   title: string;
   description: string;
-  liveUrl: string;
+  liveUrl?: string;
   githubUrl: string;
   tags: string[];
 };
