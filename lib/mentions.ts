@@ -14,7 +14,7 @@ export const mentionGroups: LinkGroup[] = [
     category: "Mentioned on",
     items: [
       {
-        label: "BRAVE Lab — University of Denver",
+        label: "BRAVE Lab - University of Denver",
         description: "Department of Psychology",
         url: "https://liberalarts.du.edu/psychology/brave/people",
       },

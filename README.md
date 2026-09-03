@@ -51,10 +51,10 @@ lib/                   # Typed data (projects.ts, skills.ts)
 
 This project was built as a hands-on way to learn full-stack development end to end, rather than just following a tutorial. Some of what that involved:
 
-- Next.js App Router fundamentals — file-based routing, dynamic routes (`[slug]`), and the Server vs. Client Component split
+- Next.js App Router fundamentals - file-based routing, dynamic routes (`[slug]`), and the Server vs. Client Component split
 - Managing structured content with TypeScript types instead of hardcoding it into components
 - Debugging real dependency issues (e.g. a library removing icons I relied on) rather than assuming a fix would always work as expected
-- Building genuinely responsive, accessible UI — not just "looks fine on desktop"
+- Building genuinely responsive, accessible UI - not just "looks fine on desktop"
 - Git workflow: writing detailed, conventional commit messages as a record of how the project was actually built
 - Deploying and connecting a custom domain via Vercel
 
