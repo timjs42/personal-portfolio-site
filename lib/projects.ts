@@ -25,4 +25,13 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/timjs42/CancerDiagnosis",
     tags: ["Python", "Naive Bayes", "pytest"],
   },
+  {
+    slug: "uptime-monitor",
+    title: "Uptime Monitor",
+    description:
+      "A full-stack uptime monitoring dashboard that checks a set of websites every 5 minutes, records HTTP status and response times, and tracks downtime incidents over time. Built with Next.js and PostgreSQL via Supabase, using Supabase Cron to trigger scheduled health checks.",
+    tags: ["Next.js", "TypeScript", "PostgreSQL", "Supabase", "Tailwind CSS"],
+    githubUrl: "https://github.com/timjs42/uptime-monitor",
+    liveUrl: "https://uptime-monitor-gamma-three.vercel.app/",
+  },
 ];
