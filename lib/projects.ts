@@ -34,4 +34,13 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/timjs42/uptime-monitor",
     liveUrl: "https://uptime-monitor-gamma-three.vercel.app/",
   },
+  {
+    slug: "used-car-deal-finder",
+    title: "Used Car Deal Finder",
+    description:
+      "An interactive Dash dashboard for exploring used car listings and surfacing potential deals, vehicles priced below the median for comparable manufacturer, model, and year combinations. Includes a stratified-sampling data pipeline, pytest coverage, and CI via GitHub Actions.",
+    liveUrl: "https://used-car-deal-finder.onrender.com/",
+    githubUrl: "https://github.com/timjs42/used-car-deal-finder",
+    tags: ["Python", "Dash", "Plotly", "pandas", "pytest"],
+  },
 ];
