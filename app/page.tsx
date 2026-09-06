@@ -1,29 +1,11 @@
-import Link from "next/link";
 import { skills } from "@/lib/skills";
 import { mentionGroups } from "@/lib/mentions";
-import HeroDepthLayers from "@/components/HeroDepthLayers";
+import Hero from "@/components/Hero";
 
 export default function Home() {
   return (
     <main className="flex-1">
-      <section className="min-h-[calc(100dvh-73px)] flex flex-col items-center justify-center px-6 relative">
-        <HeroDepthLayers />
-        <div className="flex flex-col items-center gap-6 text-center max-w-xl">
-          <p className="font-mono text-sm text-ink-secondary">Hi, I&apos;m Timothy Sheu</p>
-
-          <h1 className="text-4xl sm:text-5xl font-semibold text-ink leading-tight">
-            Full-stack developer building things that work.
-          </h1>
-
-          <p className="text-lg text-ink-secondary max-w-md">
-            I&apos;m a web developer currently pursuing a Master&apos;s in Applied Data Science and AI, with a passion for building clean, functional software.
-          </p>
-
-          <Link href="/projects" className="mt-4 h-12 px-6 flex items-center justify-center rounded-full bg-ink text-paper font-medium transition-transform duration-200 hover:scale-105 hover:-rotate-2">
-            See my projects
-          </Link>
-        </div>
-      </section>
+      <Hero />
 
       <section className="px-6 py-24 max-w-3xl mx-auto w-full border-t border-ink/10">
         <h2 className="text-2xl font-semibold text-ink mb-12 text-center">Skills</h2>
@@ -110,7 +92,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
             className="h-12 px-6 flex items-center justify-center rounded-full border border-ink/10 text-ink font-medium hover:border-accent transition-colors"
-          >  
+          >
             GitHub
           </a>
           <a
