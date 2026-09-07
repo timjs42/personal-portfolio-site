@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { projects } from "@/lib/projects";
 
 export default function Projects() {
@@ -13,7 +13,10 @@ export default function Projects() {
             href={`/projects/${project.slug}`}
             className="block p-6 rounded-2xl border border-ink/10 hover:border-accent hover:-translate-y-1 hover:scale-[0.985] transition-all duration-signature ease-signature"
           >
-            <h2 className="text-xl font-semibold text-ink mb-2">
+            <h2
+              className="text-xl font-semibold text-ink mb-2"
+              style={{ viewTransitionName: `project-title-${project.slug}` }}
+            >
               {project.title}
             </h2>
             <p className="text-ink-secondary mb-4">{project.description}</p>

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { notFound } from "next/navigation";
 import { projects } from "@/lib/projects";
 
@@ -23,7 +23,12 @@ export default async function ProjectDetail({
         ← Back to projects
       </Link>
 
-      <h1 className="text-3xl font-semibold text-ink mb-4">{project.title}</h1>
+      <h1
+        className="text-3xl font-semibold text-ink mb-4"
+        style={{ viewTransitionName: `project-title-${project.slug}` }}
+      >
+        {project.title}
+      </h1>
 
       <div className="flex gap-2 flex-wrap mb-6">
         {project.tags.map((tag) => (
