@@ -6,6 +6,8 @@
   --ink-secondary: #5F5E5A;
   --accent: #5CE7AF;
   --accent-deep: #1FA97A;
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-duration: 600ms;
 }
 
 @theme inline {
@@ -16,6 +18,8 @@
   --color-accent-deep: var(--accent-deep);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --ease-signature: var(--motion-ease);
+  --duration-signature: var(--motion-duration);
 }
 
 body {
