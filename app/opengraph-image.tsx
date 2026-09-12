@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { THEME_COLORS } from "@/lib/theme";
 
 export const size = {
   width: 1200,
@@ -13,7 +14,7 @@ export default function OpengraphImage() {
         style={{
           width: "100%",
           height: "100%",
-          background: "#FAFAF8",
+          background: THEME_COLORS.background,
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -24,25 +25,24 @@ export default function OpengraphImage() {
         <div
           style={{
             position: "absolute",
-            top: 60,
-            right: 80,
-            width: 90,
-            height: 90,
+            top: -120,
+            right: -80,
+            width: 500,
+            height: 500,
             borderRadius: "50%",
-            background: "#5CE7AF",
+            background: `radial-gradient(circle, ${THEME_COLORS.accent}55 0%, transparent 70%)`,
             display: "flex",
           }}
         />
         <div
           style={{
             position: "absolute",
-            bottom: 70,
-            right: 140,
-            width: 50,
-            height: 50,
-            borderRadius: 10,
-            background: "#14151A",
-            transform: "rotate(12deg)",
+            bottom: -160,
+            right: 60,
+            width: 420,
+            height: 420,
+            borderRadius: "50%",
+            background: `radial-gradient(circle, ${THEME_COLORS.secondary}66 0%, transparent 70%)`,
             display: "flex",
           }}
         />
@@ -51,7 +51,7 @@ export default function OpengraphImage() {
           style={{
             fontFamily: "sans-serif",
             fontSize: 22,
-            color: "#5F5E5A",
+            color: THEME_COLORS.primary,
             margin: 0,
             marginBottom: 12,
           }}
@@ -63,7 +63,7 @@ export default function OpengraphImage() {
             fontFamily: "sans-serif",
             fontWeight: 700,
             fontSize: 64,
-            color: "#14151A",
+            color: THEME_COLORS.foreground,
             margin: 0,
             marginBottom: 12,
           }}
@@ -74,7 +74,7 @@ export default function OpengraphImage() {
           style={{
             fontFamily: "sans-serif",
             fontSize: 28,
-            color: "#5F5E5A",
+            color: THEME_COLORS.primary,
             margin: 0,
           }}
         >

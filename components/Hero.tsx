@@ -3,12 +3,11 @@
 import { useRef } from "react";
 import Link from "next/link";
 import gsap from "gsap";
-import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
 import HeroDepthLayers from "@/components/HeroDepthLayers";
-import { EASE, DURATION } from "@/lib/motion";
+import { EASE_FLUID, DURATION_ENTRANCE } from "@/lib/motion";
 
-gsap.registerPlugin(SplitText, useGSAP);
+gsap.registerPlugin(useGSAP);
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -31,18 +30,16 @@ export default function Hero() {
       )
         return;
 
-      const split = new SplitText(headlineRef.current, { type: "chars" });
-
       const tl = gsap.timeline({ delay: 0.2 });
 
-      tl.set(eyebrowRef.current, { opacity: 0, x: -110, y: -30, rotate: -8 })
-        .set(split.chars, { opacity: 0, y: 24 })
-        .set(paragraphRef.current, { opacity: 0, x: 130, y: 50, rotate: 6 })
-        .set(buttonRef.current, { opacity: 0, y: 56, rotate: -8, scale: 0.9 })
-        .to(eyebrowRef.current, { opacity: 1, x: 0, y: 0, rotate: 0, duration: DURATION, ease: EASE }, 0)
-        .to(split.chars, { opacity: 1, y: 0, stagger: 0.02, duration: DURATION, ease: EASE }, 0.1)
-        .to(paragraphRef.current, { opacity: 1, x: 0, y: 0, rotate: 0, duration: DURATION, ease: EASE }, 0.3)
-        .to(buttonRef.current, { opacity: 1, y: 0, rotate: 0, scale: 1, duration: DURATION * 0.4, ease: EASE }, 0.1)
+      tl.set(eyebrowRef.current, { opacity: 0, y: 16, filter: "blur(16px)" })
+        .set(headlineRef.current, { opacity: 0, y: 24, filter: "blur(24px)" })
+        .set(paragraphRef.current, { opacity: 0, y: 20, filter: "blur(16px)" })
+        .set(buttonRef.current, { opacity: 0, y: 16, filter: "blur(12px)" })
+        .to(eyebrowRef.current, { opacity: 1, y: 0, filter: "blur(0px)", duration: DURATION_ENTRANCE, ease: EASE_FLUID }, 0)
+        .to(headlineRef.current, { opacity: 1, y: 0, filter: "blur(0px)", duration: DURATION_ENTRANCE, ease: EASE_FLUID }, 0.15)
+        .to(paragraphRef.current, { opacity: 1, y: 0, filter: "blur(0px)", duration: DURATION_ENTRANCE, ease: EASE_FLUID }, 0.35)
+        .to(buttonRef.current, { opacity: 1, y: 0, filter: "blur(0px)", duration: DURATION_ENTRANCE * 0.7, ease: EASE_FLUID }, 0.5);
     },
     { scope: sectionRef }
   );
@@ -50,32 +47,37 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="min-h-[calc(100dvh-73px)] flex flex-col items-center justify-center px-6 relative overflow-hidden"
+      className="min-h-[calc(100dvh-73px)] flex items-center px-6 py-16 relative overflow-hidden"
     >
       <HeroDepthLayers />
-      <div className="flex flex-col items-center gap-6 text-center max-w-xl">
-        <p ref={eyebrowRef} className="font-mono text-sm text-ink-secondary">
-          Hi, I&apos;m Timothy Sheu
-        </p>
+      <div className="w-full max-w-6xl mx-auto grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-8 items-center relative">
+        <div className="flex flex-col gap-4">
+          <p ref={eyebrowRef} className="font-mono text-sm text-primary">
+            Hi, I&apos;m Timothy Sheu
+          </p>
 
-        <h1
-          ref={headlineRef}
-          className="text-4xl sm:text-5xl font-semibold text-ink leading-tight"
-        >
-          Full-stack developer
-        </h1>
+          <h1
+            ref={headlineRef}
+            className="font-display text-4xl sm:text-6xl lg:text-7xl font-semibold leading-[0.95] max-w-md sm:max-w-lg lg:max-w-2xl"
+          >
+            <span className="text-foreground">Full-stack </span>
+            <span className="text-accent">developer</span>
+          </h1>
+        </div>
 
-        <p ref={paragraphRef} className="text-lg text-ink-secondary max-w-md">
-          I&apos;m a web developer currently pursuing a Master&apos;s in Applied Data Science and AI, with a passion for building clean, functional software.
-        </p>
+        <div className="flex flex-col items-start gap-6">
+          <p ref={paragraphRef} className="text-lg text-primary max-w-sm">
+            I&apos;m a web developer currently pursuing a Master&apos;s in Applied Data Science and AI, with a passion for building clean, functional software.
+          </p>
 
-        <Link
-          ref={buttonRef}
-          href="/projects"
-          className="mt-4 h-12 px-6 flex items-center justify-center rounded-full bg-ink text-paper font-medium transition-transform duration-200 hover:scale-105 hover:-rotate-2"
-        >
-          See my projects
-        </Link>
+          <Link
+            ref={buttonRef}
+            href="/projects"
+            className="h-12 px-6 flex items-center justify-center rounded-full bg-accent text-background font-medium transition-all duration-signature ease-signature hover:scale-[1.03] hover:-rotate-1 hover:shadow-[0_0_30px_-8px_var(--accent)]"
+          >
+            See my projects
+          </Link>
+        </div>
       </div>
     </section>
   );

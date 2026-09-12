@@ -18,13 +18,13 @@ export default async function ProjectDetail({
     <main className="flex-1 px-6 py-16 max-w-3xl mx-auto w-full">
       <Link
         href="/projects"
-        className="text-sm text-ink-secondary hover:text-accent transition-colors mb-8 inline-block"
+        className="text-sm text-primary hover:text-accent transition-colors mb-8 inline-block"
       >
         ← Back to projects
       </Link>
 
       <h1
-        className="text-3xl font-semibold text-ink mb-4"
+        className="font-display text-3xl font-semibold text-foreground mb-4"
         style={{ viewTransitionName: `project-title-${project.slug}` }}
       >
         {project.title}
@@ -34,14 +34,14 @@ export default async function ProjectDetail({
         {project.tags.map((tag) => (
           <span
             key={tag}
-            className="font-mono text-xs px-2 py-1 rounded-full bg-ink/5 text-ink-secondary"
+            className="font-mono text-xs px-2 py-1 rounded-full bg-secondary/20 text-primary"
           >
             {tag}
           </span>
         ))}
       </div>
 
-      <p className="text-ink-secondary text-lg mb-8">{project.description}</p>
+      <p className="text-primary text-lg mb-8">{project.description}</p>
 
       <div className="flex gap-4">
         {project.liveUrl && (
@@ -49,7 +49,7 @@ export default async function ProjectDetail({
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="h-12 px-6 flex items-center justify-center rounded-full bg-ink text-paper font-medium transition-transform duration-200 hover:scale-105 hover:-rotate-2"
+            className="h-12 px-6 flex items-center justify-center rounded-full bg-accent text-background font-medium transition-all duration-signature ease-signature hover:scale-[1.03] hover:-rotate-1 hover:shadow-[0_0_30px_-8px_var(--accent)]"
           >
             View live site
           </a>
@@ -58,7 +58,7 @@ export default async function ProjectDetail({
           href={project.githubUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="h-12 px-6 flex items-center justify-center rounded-full border border-ink/10 text-ink font-medium hover:border-accent transition-colors"
+          className="h-12 px-6 flex items-center justify-center rounded-full border border-secondary/30 text-foreground font-medium hover:border-accent transition-colors"
         >
           View code
         </a>

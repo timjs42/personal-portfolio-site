@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { THEME_COLORS } from "@/lib/theme";
 
 export const size = {
   width: 32,
@@ -12,8 +13,8 @@ export default function Icon() {
       <div
         style={{
           fontSize: 20,
-          background: "#5CE7AF",
-          color: "#14151A",
+          background: THEME_COLORS.accent,
+          color: THEME_COLORS.background,
           width: "100%",
           height: "100%",
           display: "flex",

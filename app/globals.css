@@ -1,75 +1,68 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #FAFAF8;
-  --ink: #14151A;
-  --ink-secondary: #5F5E5A;
-  --accent: #5CE7AF;
-  --accent-deep: #1FA97A;
-  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --motion-duration: 600ms;
+  --background: #0f130f;
+  --foreground: #ecede8;
+  --primary: #bbbeac;
+  --secondary: #4c615a;
+  --accent: #7e9c7a;
+
+  --ease-fluid: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fluid: 900ms;
 }
 
 @theme inline {
-  --color-paper: var(--paper);
-  --color-ink: var(--ink);
-  --color-ink-secondary: var(--ink-secondary);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
   --color-accent: var(--accent);
-  --color-accent-deep: var(--accent-deep);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --ease-signature: var(--motion-ease);
-  --duration-signature: var(--motion-duration);
+  --font-display: var(--font-space-grotesk);
+  --font-mono: var(--font-jetbrains-mono);
+  --ease-signature: var(--ease-fluid);
+  --duration-signature: 500ms;
 }
 
 body {
-  background: var(--paper);
-  color: var(--ink);
+  background: var(--background);
+  color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
-@keyframes node-in {
+@keyframes vt-blur-in {
   from {
+    opacity: 0.3;
+    filter: blur(14px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes vt-blur-out {
+  from {
+    opacity: 1;
+    filter: blur(0);
+  }
+  to {
     opacity: 0;
-    transform: scale(0);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
+    filter: blur(14px);
   }
 }
 
-@keyframes line-draw {
-  from {
-    stroke-dashoffset: 1;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
+::view-transition-group(*) {
+  animation-duration: var(--duration-fluid);
+  animation-timing-function: var(--ease-fluid);
 }
 
-.hero-node {
-  opacity: 0;
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: node-in 0.5s ease-out forwards;
+::view-transition-new(*) {
+  animation: vt-blur-in var(--duration-fluid) var(--ease-fluid);
 }
 
-.hero-line {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: line-draw 0.9s ease-out forwards;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-node {
-    opacity: 1;
-    animation: none;
-  }
-  .hero-line {
-    stroke-dashoffset: 0;
-    animation: none;
-  }
+::view-transition-old(*) {
+  animation: vt-blur-out calc(var(--duration-fluid) * 0.6) var(--ease-fluid);
 }
 
 @media (prefers-reduced-motion: reduce) {
