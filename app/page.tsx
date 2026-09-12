@@ -1,6 +1,16 @@
+import type { CSSProperties } from "react";
 import { skills } from "@/lib/skills";
 import { mentionGroups } from "@/lib/mentions";
 import Hero from "@/components/Hero";
+
+function isTooDarkForTile(hex: string) {
+  const c = hex.replace("#", "");
+  const r = parseInt(c.substring(0, 2), 16);
+  const g = parseInt(c.substring(2, 4), 16);
+  const b = parseInt(c.substring(4, 6), 16);
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return luminance < 0.25;
+}
 
 export default function Home() {
   return (
@@ -16,21 +26,34 @@ export default function Home() {
               <h3 className="font-mono text-sm text-primary mb-6 text-center">
                 {group.category}
               </h3>
-              <div className="flex flex-wrap justify-center gap-6">
+              <div className="flex flex-wrap justify-center gap-4 sm:gap-5">
                 {group.items.map((skill) => {
                   const Icon = skill.icon;
+                  const tooDark = isTooDarkForTile(skill.color);
+                  const glowColor = tooDark ? "var(--accent)" : skill.color;
+                  const iconColor = tooDark ? "var(--foreground)" : skill.color;
                   return (
-                    <div key={skill.name} className="flex flex-col items-center gap-2">
+                    <div
+                      key={skill.name}
+                      className={
+                        group.category === "Currently Learning"
+                          ? "group relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-2xl border border-accent/60 bg-secondary/10 flex items-center justify-center overflow-hidden transition-all duration-signature ease-signature hover:-translate-y-1"
+                          : "group relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-2xl border border-secondary/30 bg-secondary/10 flex items-center justify-center overflow-hidden transition-all duration-signature ease-signature hover:-translate-y-1"
+                      }
+                      style={{ "--tile-glow": glowColor } as CSSProperties}
+                    >
                       <div
-                        className={
-                          group.category === "Currently Learning"
-                            ? "w-14 h-14 rounded-2xl flex items-center justify-center bg-primary/90 border-2 border-accent"
-                            : "w-14 h-14 rounded-2xl flex items-center justify-center bg-secondary/20"
-                        }
-                      >
-                        <Icon className="w-6 h-6" style={{ color: skill.color }} />
-                      </div>
-                      <span className="text-xs text-primary text-center">
+                        className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-signature ease-signature group-hover:opacity-100"
+                        style={{
+                          boxShadow: "0 0 24px -6px var(--tile-glow)",
+                          border: "1px solid var(--tile-glow)",
+                        }}
+                      />
+                      <Icon
+                        className="w-7 h-7 sm:w-8 sm:h-8 transition-transform duration-signature ease-signature group-hover:scale-110"
+                        style={{ color: iconColor }}
+                      />
+                      <span className="absolute inset-x-0 bottom-0 bg-background/90 text-foreground text-[10px] sm:text-xs font-medium text-center py-1.5 translate-y-full group-hover:translate-y-0 transition-transform duration-signature ease-signature">
                         {skill.name}
                       </span>
                     </div>
