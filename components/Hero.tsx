@@ -44,6 +44,29 @@ export default function Hero() {
     { scope: sectionRef }
   );
 
+  const handleScrollDown = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const target = document.getElementById("skills");
+    if (!target) return;
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    // Pause GSAP's ambient background animation for the scroll so it isn't
+    // competing with the browser's scroll compositing and causing jank.
+    gsap.globalTimeline.pause();
+    const resume = () => gsap.globalTimeline.resume();
+
+    target.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
+
+    if ("onscrollend" in window) {
+      window.addEventListener("scrollend", resume, { once: true });
+    } else {
+      setTimeout(resume, 900);
+    }
+  };
+
   return (
     <section
       ref={sectionRef}
@@ -82,6 +105,7 @@ export default function Hero() {
 
       <a
         href="#skills"
+        onClick={handleScrollDown}
         className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 w-20 h-20 rounded-full bg-accent text-background flex flex-col items-center justify-center text-xs font-medium leading-tight text-center motion-safe:animate-bounce transition-transform hover:scale-105"
       >
         Scroll
