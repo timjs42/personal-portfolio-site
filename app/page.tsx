@@ -7,7 +7,7 @@ export default function Home() {
     <main className="flex-1">
       <Hero />
 
-      <section className="px-6 py-24 max-w-3xl mx-auto w-full border-t border-secondary/30">
+      <section id="skills" className="px-6 py-24 max-w-3xl mx-auto w-full border-t border-secondary/30">
         <h2 className="font-display text-2xl font-semibold text-foreground mb-12 text-center">Skills</h2>
 
         <div className="flex flex-col gap-12">

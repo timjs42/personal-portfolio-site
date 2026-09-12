@@ -79,6 +79,15 @@ export default function Hero() {
           </Link>
         </div>
       </div>
+
+      <a
+        href="#skills"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 w-20 h-20 rounded-full bg-accent text-background flex flex-col items-center justify-center text-xs font-medium leading-tight text-center motion-safe:animate-bounce transition-transform hover:scale-105"
+      >
+        Scroll
+        <br />
+        down
+      </a>
     </section>
   );
 }
