@@ -1,13 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    function onScroll() {
+      setScrolled(window.scrollY > 8);
+    }
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <nav className="relative max-w-3xl mx-auto w-full px-6 py-4">
+    <header
+      className={`sticky top-0 z-50 w-full transition-colors duration-signature ease-signature ${
+        scrolled ? "bg-background/80 backdrop-blur-md border-b border-secondary/30" : "bg-transparent"
+      }`}
+    >
+      <nav className="relative max-w-3xl mx-auto w-full px-6 py-4">
       <div className="flex items-center justify-between">
         <Link href="/" className="font-mono text-sm text-foreground" onClick={() => setIsOpen(false)}>
           Timothy Sheu
@@ -107,6 +122,7 @@ export default function Nav() {
           </div>
         </div>
       )}
-    </nav>
+      </nav>
+    </header>
   );
 }
