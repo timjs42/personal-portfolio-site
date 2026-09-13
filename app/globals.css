@@ -8,7 +8,7 @@
   --accent: #7e9c7a;
 
   --ease-fluid: cubic-bezier(0.16, 1, 0.3, 1);
-  --duration-fluid: 900ms;
+  --duration-vt: 220ms;
 }
 
 @theme inline {
@@ -47,34 +47,28 @@ body {
   }
 }
 
-@keyframes vt-blur-out {
-  from {
-    opacity: 1;
-    filter: blur(0);
-  }
-  to {
-    opacity: 0;
-    filter: blur(14px);
-  }
-}
-
 ::view-transition-group(*) {
-  animation-duration: var(--duration-fluid);
+  animation-duration: var(--duration-vt);
   animation-timing-function: var(--ease-fluid);
 }
 
-::view-transition-new(*) {
-  animation: vt-blur-in var(--duration-fluid) var(--ease-fluid);
-}
+/* The default (unnamed) page crossfade lives under "root" and is matched by
+   the wildcard selector above too — reset it back to the browser default so
+   only elements we've explicitly named (e.g. project titles) get the custom
+   morph timing, instead of the whole page inheriting it on every nav.
 
-::view-transition-old(*) {
-  animation: vt-blur-out calc(var(--duration-fluid) * 0.6) var(--ease-fluid);
+   Note: the project list has one named element per card. Clicking one means
+   the other cards' titles have no counterpart on the destination page, so
+   the browser treats them as orphaned exits using this same selector. We
+   deliberately don't add a custom blur/fade animation here (beyond the
+   timing) so those orphaned exits stay a plain, fast, unobtrusive fade
+   instead of a distracting effect with no real element to land on. */
+::view-transition-group(root) {
+  animation: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  ::view-transition-group(*),
-  ::view-transition-old(*),
-  ::view-transition-new(*) {
+  ::view-transition-group(*) {
     animation: none !important;
   }
 }
