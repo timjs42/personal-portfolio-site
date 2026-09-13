@@ -27,13 +27,19 @@ export default function NotFoundGame() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas?.getContext("2d");
-    if (!canvas || !ctx) return;
+    const canvasEl = canvasRef.current;
+    const canvasCtx = canvasEl?.getContext("2d");
+    if (!canvasEl || !canvasCtx) return;
+
+    // Rebind to new consts: TypeScript's null-narrowing above doesn't carry
+    // into the nested closures below, but a fresh const gets its own
+    // non-nullable type at the point of declaration.
+    const el = canvasEl;
+    const ctx = canvasCtx;
 
     const dpr = window.devicePixelRatio || 1;
-    canvas.width = WIDTH * dpr;
-    canvas.height = HEIGHT * dpr;
+    el.width = WIDTH * dpr;
+    el.height = HEIGHT * dpr;
     ctx.scale(dpr, dpr);
 
     let state: GameState = "idle";
@@ -107,14 +113,14 @@ export default function NotFoundGame() {
     }
 
     function handlePointerDown(e: PointerEvent) {
-      const rect = canvas.getBoundingClientRect();
+      const rect = el.getBoundingClientRect();
       touchStart = { x: e.clientX - rect.left, y: e.clientY - rect.top };
       handleAction();
     }
 
     function handlePointerUp(e: PointerEvent) {
       if (!touchStart) return;
-      const rect = canvas.getBoundingClientRect();
+      const rect = el.getBoundingClientRect();
       const dx = e.clientX - rect.left - touchStart.x;
       const dy = e.clientY - rect.top - touchStart.y;
       touchStart = null;
@@ -192,14 +198,14 @@ export default function NotFoundGame() {
     animationFrame = requestAnimationFrame(loop);
 
     window.addEventListener("keydown", handleKeyDown);
-    canvas.addEventListener("pointerdown", handlePointerDown);
-    canvas.addEventListener("pointerup", handlePointerUp);
+    el.addEventListener("pointerdown", handlePointerDown);
+    el.addEventListener("pointerup", handlePointerUp);
 
     return () => {
       cancelAnimationFrame(animationFrame);
       window.removeEventListener("keydown", handleKeyDown);
-      canvas.removeEventListener("pointerdown", handlePointerDown);
-      canvas.removeEventListener("pointerup", handlePointerUp);
+      el.removeEventListener("pointerdown", handlePointerDown);
+      el.removeEventListener("pointerup", handlePointerUp);
     };
   }, []);
 
