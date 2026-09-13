@@ -2,6 +2,10 @@ import { Link } from "next-view-transitions";
 import { notFound } from "next/navigation";
 import { projects } from "@/lib/projects";
 
+export function generateStaticParams() {
+  return projects.map((project) => ({ slug: project.slug }));
+}
+
 export default async function ProjectDetail({
   params,
 }: {
