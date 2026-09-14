@@ -30,6 +30,12 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
+/* Lifts text off the animated hero background (busier now with the molten
+   shader's grain/noise) without needing a solid panel behind it. */
+.hero-text-shadow {
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
+}
+
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
