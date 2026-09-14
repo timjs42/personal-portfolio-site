@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { projects } from "@/lib/projects";
 
@@ -8,6 +8,7 @@ const ARC_STEP = 26;
 const MAX_ROTATION = ARC_STEP * (projects.length - 1);
 const RADIUS = 170;
 const DRAG_SENSITIVITY = 0.35;
+const MIDDLE_INDEX = Math.floor((projects.length - 1) / 2);
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
@@ -18,6 +19,14 @@ export default function ProjectRoulette() {
   const [settling, setSettling] = useState(false);
   const rotationRef = useRef(0);
   const dragRef = useRef({ dragging: false, captured: false, pointerId: 0, startX: 0, startRotation: 0, moved: 0 });
+
+  useEffect(() => {
+    if (window.matchMedia("(max-width: 1023px)").matches) {
+      const startRotation = -MIDDLE_INDEX * ARC_STEP;
+      rotationRef.current = startRotation;
+      setRotation(startRotation);
+    }
+  }, []);
 
   const applyRotation = (deg: number) => {
     rotationRef.current = deg;

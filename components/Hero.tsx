@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { ChevronDown } from "lucide-react";
 import MoltenMetal from "@/components/MoltenMetal";
 import ProjectRoulette from "@/components/ProjectRoulette";
 import { EASE_FLUID, DURATION_ENTRANCE } from "@/lib/motion";
@@ -13,6 +14,13 @@ export default function Hero() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const paragraphRef = useRef<HTMLParagraphElement>(null);
   const buttonRef = useRef<HTMLAnchorElement>(null);
+  const [showScrollHint, setShowScrollHint] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => setShowScrollHint(window.scrollY < 80);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
@@ -103,8 +111,8 @@ export default function Hero() {
       </div>
 
       <div className="relative w-full max-w-4xl mx-auto grid lg:grid-cols-[1.1fr_1fr] gap-10 items-stretch">
-        <div className="flex flex-col justify-between max-w-md mx-auto">
-          <div className="flex flex-col gap-8">
+        <div className="flex flex-col items-center text-center justify-between max-w-md mx-auto lg:items-start lg:text-left">
+          <div className="flex flex-col items-center gap-8 lg:items-start">
             <div className="flex flex-col gap-4">
               <p ref={eyebrowRef} className="hero-text-shadow font-mono text-sm font-medium text-primary">
                 Hi, I&apos;m Timothy Sheu
@@ -127,7 +135,7 @@ export default function Hero() {
           <a
             href="#skills"
             onClick={handleScrollDown}
-            className="self-start h-12 px-6 flex items-center justify-center rounded-full bg-primary text-background font-medium transition-all duration-signature ease-signature hover:scale-[1.03] hover:-rotate-1 hover:shadow-[0_0_30px_-8px_var(--primary)]"
+            className="hidden lg:flex self-start h-12 px-6 items-center justify-center rounded-full bg-primary text-background font-medium transition-all duration-signature ease-signature hover:scale-[1.03] hover:-rotate-1 hover:shadow-[0_0_30px_-8px_var(--primary)]"
           >
             Scroll Down
           </a>
@@ -147,6 +155,17 @@ export default function Hero() {
           </Link>
         </div>
       </div>
+
+      <a
+        href="#skills"
+        onClick={handleScrollDown}
+        aria-label="Scroll down"
+        className={`lg:hidden fixed bottom-6 right-6 z-10 text-primary animate-bounce transition-opacity duration-300 ${
+          showScrollHint ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <ChevronDown className="w-7 h-7" />
+      </a>
     </section>
   );
 }
