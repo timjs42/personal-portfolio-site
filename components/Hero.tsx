@@ -2,8 +2,10 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import MoltenMetal from "@/components/MoltenMetal";
 import ProjectRoulette from "@/components/ProjectRoulette";
 import { EASE_FLUID, DURATION_ENTRANCE } from "@/lib/motion";
+import { THEME_COLORS } from "@/lib/theme";
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -59,7 +61,6 @@ export default function Hero() {
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
-
     const { default: gsap } = await import("gsap");
     gsap.globalTimeline.pause();
     const resume = () => gsap.globalTimeline.resume();
@@ -76,10 +77,33 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="min-h-[calc(100dvh-73px)] flex flex-col lg:flex-row"
+      className="min-h-[calc(100dvh-73px)] relative overflow-hidden flex items-center px-6 py-16"
     >
-      <div className="relative flex-1 min-w-0 flex flex-col lg:flex-row items-center justify-center lg:justify-start overflow-hidden px-6 py-16">
-        <div className="relative w-full max-w-xl mx-auto lg:mx-0 lg:ml-auto lg:mr-12 flex flex-col gap-4">
+      <div className="absolute inset-0 -z-10">
+        <MoltenMetal
+          color1={THEME_COLORS.secondary}
+          color2={THEME_COLORS.accent}
+          color3={THEME_COLORS.foreground}
+          speed={0.35}
+          scale={4}
+          detail={3}
+          glow={1.6}
+          coreSize={0.1}
+          swirl={1}
+          fold={-0.2}
+          blackPoint={0.05}
+          brightness={1.1}
+          colorMode="molten"
+          grain={true}
+          grainIntensity={0.05}
+          mouseInteraction={true}
+          mouseStrength={0.3}
+          opacity={0.55}
+        />
+      </div>
+
+      <div className="relative w-full max-w-6xl mx-auto grid lg:grid-cols-[1.3fr_1fr] gap-12 lg:gap-16 items-center">
+        <div className="flex flex-col gap-4 max-w-xl mx-auto lg:mx-0">
           <p ref={eyebrowRef} className="font-mono text-sm text-primary">
             Hi, I&apos;m Timothy Sheu
           </p>
@@ -105,20 +129,20 @@ export default function Hero() {
           </Link>
         </div>
 
-        <a
-          href="#skills"
-          onClick={handleScrollDown}
-          className="relative mt-10 mx-auto lg:absolute lg:mt-0 lg:bottom-6 lg:left-1/2 lg:-translate-x-1/2 z-20 w-20 h-20 rounded-full bg-accent text-background flex flex-col items-center justify-center text-xs font-medium leading-tight text-center motion-safe:animate-bounce transition-transform hover:scale-105"
-        >
-          Scroll
-          <br />
-          down
-        </a>
+        <div className="flex items-center justify-center">
+          <ProjectRoulette />
+        </div>
       </div>
 
-      <div className="flex-1 min-w-0 flex items-center justify-center border-t lg:border-t-0 lg:border-l border-secondary/30 bg-secondary/5 px-6 py-16">
-        <ProjectRoulette />
-      </div>
+      <a
+        href="#skills"
+        onClick={handleScrollDown}
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 w-20 h-20 rounded-full bg-accent text-background flex flex-col items-center justify-center text-xs font-medium leading-tight text-center motion-safe:animate-bounce transition-transform hover:scale-105"
+      >
+        Scroll
+        <br />
+        down
+      </a>
     </section>
   );
 }
