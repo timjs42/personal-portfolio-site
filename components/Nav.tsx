@@ -42,7 +42,7 @@ export default function Nav() {
             href="/projects"
             className="text-sm px-4 py-1.5 rounded-full bg-accent text-background font-medium transition-all duration-signature ease-signature hover:scale-[1.03] hover:shadow-[0_0_20px_-8px_var(--accent)]"
           >
-            Projects
+            See All Projects
           </Link>
           <div className="flex items-center gap-4 pl-4 border-l border-secondary/30">
             <a href="https://github.com/timjs42/personal-portfolio-site" target="_blank" rel="noopener noreferrer" aria-label="View source code for this site">
@@ -100,7 +100,7 @@ export default function Nav() {
             onClick={() => setIsOpen(false)}
             className="self-start text-sm px-4 py-1.5 rounded-full bg-accent text-background font-medium transition-all duration-signature ease-signature hover:scale-[1.03] hover:shadow-[0_0_20px_-8px_var(--accent)]"
           >
-            Projects
+            See All Projects
           </Link>
           <div className="flex items-center gap-4 pt-2 border-t border-secondary/30">
             <a href="https://github.com/timjs42/personal-portfolio-site" target="_blank" rel="noopener noreferrer" aria-label="View source code for this site">
