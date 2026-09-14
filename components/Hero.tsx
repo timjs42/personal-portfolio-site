@@ -77,7 +77,7 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="min-h-[calc(100dvh-73px)] relative overflow-hidden flex items-center px-6 py-16"
+      className="min-h-[calc(100dvh-73px)] relative overflow-hidden flex items-center justify-center px-6 py-16"
     >
       <div className="absolute inset-0 -z-10">
         <MoltenMetal
@@ -102,47 +102,51 @@ export default function Hero() {
         />
       </div>
 
-      <div className="relative w-full max-w-6xl mx-auto grid lg:grid-cols-[1.3fr_1fr] gap-12 lg:gap-16 items-center">
-        <div className="flex flex-col gap-4 max-w-xl mx-auto lg:mx-0">
-          <p ref={eyebrowRef} className="font-mono text-sm text-primary">
-            Hi, I&apos;m Timothy Sheu
-          </p>
+      <div className="relative w-full max-w-4xl mx-auto grid lg:grid-cols-[1.1fr_1fr] gap-10 items-stretch">
+        <div className="flex flex-col justify-between max-w-md mx-auto">
+          <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-4">
+              <p ref={eyebrowRef} className="hero-text-shadow font-mono text-sm font-medium text-primary">
+                Hi, I&apos;m Timothy Sheu
+              </p>
 
-          <h1
-            ref={headlineRef}
-            className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[0.95]"
+              <h1
+                ref={headlineRef}
+                className="hero-text-shadow font-display text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[0.95]"
+              >
+                <span className="text-foreground">Full-stack </span>
+                <span className="text-accent">developer</span>
+              </h1>
+            </div>
+
+            <p ref={paragraphRef} className="hero-text-shadow text-lg font-medium text-primary max-w-sm">
+              I&apos;m a web developer currently pursuing a Master&apos;s in Applied Data Science and AI, with a passion for building clean, functional software.
+            </p>
+          </div>
+
+          <a
+            href="#skills"
+            onClick={handleScrollDown}
+            className="self-start h-12 px-6 flex items-center justify-center rounded-full bg-primary text-background font-medium transition-all duration-signature ease-signature hover:scale-[1.03] hover:-rotate-1 hover:shadow-[0_0_30px_-8px_var(--primary)]"
           >
-            <span className="text-foreground">Full-stack </span>
-            <span className="text-accent">developer</span>
-          </h1>
+            Scroll Down
+          </a>
+        </div>
 
-          <p ref={paragraphRef} className="text-lg text-primary max-w-sm">
-            I&apos;m a web developer currently pursuing a Master&apos;s in Applied Data Science and AI, with a passion for building clean, functional software.
-          </p>
+        <div className="flex flex-col items-center gap-6">
+          <p className="hero-text-shadow font-mono text-sm font-medium text-primary">Featured Projects</p>
+
+          <ProjectRoulette />
 
           <Link
             ref={buttonRef}
             href="/projects"
-            className="mt-2 self-start h-12 px-6 flex items-center justify-center rounded-full bg-accent text-background font-medium transition-all duration-signature ease-signature hover:scale-[1.03] hover:-rotate-1 hover:shadow-[0_0_30px_-8px_var(--accent)]"
+            className="h-12 px-6 flex items-center justify-center rounded-full bg-accent text-background font-medium transition-all duration-signature ease-signature hover:scale-[1.03] hover:-rotate-1 hover:shadow-[0_0_30px_-8px_var(--accent)]"
           >
             See All Projects
           </Link>
         </div>
-
-        <div className="flex items-center justify-center">
-          <ProjectRoulette />
-        </div>
       </div>
-
-      <a
-        href="#skills"
-        onClick={handleScrollDown}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 w-20 h-20 rounded-full bg-accent text-background flex flex-col items-center justify-center text-xs font-medium leading-tight text-center motion-safe:animate-bounce transition-transform hover:scale-105"
-      >
-        Scroll
-        <br />
-        down
-      </a>
     </section>
   );
 }

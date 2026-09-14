@@ -4,9 +4,9 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import { projects } from "@/lib/projects";
 
-const ARC_STEP = 32;
+const ARC_STEP = 26;
 const MAX_ROTATION = ARC_STEP * (projects.length - 1);
-const RADIUS = 240;
+const RADIUS = 170;
 const DRAG_SENSITIVITY = 0.35;
 
 function clamp(value: number, min: number, max: number) {
@@ -69,7 +69,7 @@ export default function ProjectRoulette() {
 
   return (
     <div className="w-full flex flex-col items-center gap-8">
-      <div className="[perspective:1100px] w-full flex items-center justify-center" style={{ height: 260 }}>
+      <div className="[perspective:1100px] w-full overflow-hidden flex items-center justify-center" style={{ height: 260 }}>
         <div
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
