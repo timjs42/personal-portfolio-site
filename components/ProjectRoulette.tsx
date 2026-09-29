@@ -91,7 +91,11 @@ export default function ProjectRoulette() {
     }, 0);
   };
 
-  const handleCardClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handlePointerLeave = () => {
+    if (!dragRef.current.captured) handlePointerUp();
+  };
+
+  const handleCardClick =(e: React.MouseEvent<HTMLAnchorElement>) => {
     if (dragRef.current.moved > 6) {
       e.preventDefault();
     }
@@ -104,7 +108,7 @@ export default function ProjectRoulette() {
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
-          onPointerLeave={handlePointerUp}
+          onPointerLeave={handlePointerLeave}
           onPointerCancel={handlePointerUp}
           className="relative [transform-style:preserve-3d] cursor-grab active:cursor-grabbing touch-none"
           style={{ width: 220, height: 220 }}
