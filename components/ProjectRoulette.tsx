@@ -14,27 +14,51 @@ function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
 }
 
+function cardTransform(angle: number) {
+  return `rotateY(${angle}deg) translateZ(${RADIUS}px) rotateY(${-angle}deg)`;
+}
+
+function activeIndexFor(rotation: number) {
+  return clamp(Math.round(-rotation / ARC_STEP), 0, projects.length - 1);
+}
+
 export default function ProjectRoulette() {
-  const [rotation, setRotation] = useState(0);
-  const [settling, setSettling] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
   const rotationRef = useRef(0);
+  const settleRef = useRef(false);
+  const frameRef = useRef(0);
+  const cardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const dragRef = useRef({ dragging: false, captured: false, pointerId: 0, startX: 0, startRotation: 0, moved: 0 });
+
+  const writeTransforms = () => {
+    frameRef.current = 0;
+    const transition = settleRef.current ? "transform 500ms var(--ease-fluid)" : "none";
+    cardRefs.current.forEach((card, i) => {
+      if (!card) return;
+      card.style.transition = transition;
+      card.style.transform = cardTransform(i * ARC_STEP + rotationRef.current);
+    });
+    setActiveIndex(activeIndexFor(rotationRef.current));
+  };
+
+  const applyRotation = (deg: number, settle = false) => {
+    rotationRef.current = deg;
+    settleRef.current = settle;
+    if (frameRef.current === 0) frameRef.current = requestAnimationFrame(writeTransforms);
+  };
 
   useEffect(() => {
     if (window.matchMedia("(max-width: 1023px)").matches) {
-      const startRotation = -MIDDLE_INDEX * ARC_STEP;
-      rotationRef.current = startRotation;
-      setRotation(startRotation);
+      applyRotation(-MIDDLE_INDEX * ARC_STEP);
     }
+    return () => {
+      cancelAnimationFrame(frameRef.current);
+      frameRef.current = 0;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const applyRotation = (deg: number) => {
-    rotationRef.current = deg;
-    setRotation(deg);
-  };
-
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    setSettling(false);
     dragRef.current = {
       dragging: true,
       captured: false,
@@ -61,8 +85,7 @@ export default function ProjectRoulette() {
     if (!dragRef.current.dragging) return;
     dragRef.current.dragging = false;
     const nearest = clamp(Math.round(rotationRef.current / ARC_STEP) * ARC_STEP, -MAX_ROTATION, 0);
-    setSettling(true);
-    applyRotation(nearest);
+    applyRotation(nearest, true);
     setTimeout(() => {
       dragRef.current.moved = 0;
     }, 0);
@@ -73,8 +96,6 @@ export default function ProjectRoulette() {
       e.preventDefault();
     }
   };
-
-  const activeIndex = clamp(Math.round(-rotation / ARC_STEP), 0, projects.length - 1);
 
   return (
     <div className="w-full flex flex-col items-center gap-8">
@@ -89,18 +110,17 @@ export default function ProjectRoulette() {
           style={{ width: 220, height: 220 }}
         >
           {projects.map((project, i) => {
-            const angle = i * ARC_STEP + rotation;
             return (
               <Link
                 key={project.slug}
+                ref={(el) => {
+                  cardRefs.current[i] = el;
+                }}
                 href={`/projects/${project.slug}`}
                 onClick={handleCardClick}
                 onDragStart={(e) => e.preventDefault()}
                 className="absolute inset-0 flex flex-col justify-center p-5 rounded-2xl border border-secondary/30 bg-background/90 hover:border-accent transition-colors select-none"
-                style={{
-                  transform: `rotateY(${angle}deg) translateZ(${RADIUS}px) rotateY(${-angle}deg)`,
-                  transition: settling ? "transform 500ms var(--ease-fluid)" : "none",
-                }}
+                style={{ transform: cardTransform(i * ARC_STEP), transition: "none" }}
               >
                 <h3 className="font-display text-base font-semibold text-foreground mb-3">
                   {project.title}

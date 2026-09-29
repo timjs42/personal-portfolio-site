@@ -40,6 +40,19 @@ body {
   html {
     scroll-behavior: smooth;
   }
+
+  .hero-enter {
+    animation: hero-enter var(--enter-duration, 1100ms) var(--ease-fluid)
+      var(--enter-delay, 0ms) backwards;
+  }
+}
+
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--enter-y, 16px));
+    filter: blur(var(--enter-blur, 16px));
+  }
 }
 
 @keyframes vt-blur-in {

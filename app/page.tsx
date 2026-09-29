@@ -37,8 +37,8 @@ export default function Home() {
                       key={skill.name}
                       className={
                         group.category === "Currently Learning"
-                          ? "group relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-2xl border border-accent/60 bg-secondary/10 flex items-center justify-center overflow-hidden transition-all duration-signature ease-signature hover:-translate-y-1"
-                          : "group relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-2xl border border-secondary/30 bg-secondary/10 flex items-center justify-center overflow-hidden transition-all duration-signature ease-signature hover:-translate-y-1"
+                          ? "group relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-2xl border border-accent/60 bg-secondary/10 flex items-center justify-center overflow-hidden transition-transform duration-signature ease-signature hover:-translate-y-1"
+                          : "group relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-2xl border border-secondary/30 bg-secondary/10 flex items-center justify-center overflow-hidden transition-transform duration-signature ease-signature hover:-translate-y-1"
                       }
                       style={{ "--tile-glow": glowColor } as CSSProperties}
                     >
@@ -114,7 +114,7 @@ export default function Home() {
             href="https://github.com/timjs42"
             target="_blank"
             rel="noopener noreferrer"
-            className="h-12 px-6 flex items-center justify-center rounded-full border border-secondary/30 text-foreground font-medium transition-all duration-signature ease-signature hover:border-accent hover:shadow-[0_0_30px_-12px_var(--accent)]"
+            className="h-12 px-6 flex items-center justify-center rounded-full border border-secondary/30 text-foreground font-medium transition-[border-color,box-shadow] duration-signature ease-signature hover:border-accent hover:shadow-[0_0_30px_-12px_var(--accent)]"
           >
             GitHub
           </a>
@@ -122,7 +122,7 @@ export default function Home() {
             href="https://www.linkedin.com/in/timothy-sheu-6b1719220/"
             target="_blank"
             rel="noopener noreferrer"
-            className="h-12 px-6 flex items-center justify-center rounded-full border border-secondary/30 text-foreground font-medium transition-all duration-signature ease-signature hover:border-accent hover:shadow-[0_0_30px_-12px_var(--accent)]"
+            className="h-12 px-6 flex items-center justify-center rounded-full border border-secondary/30 text-foreground font-medium transition-[border-color,box-shadow] duration-signature ease-signature hover:border-accent hover:shadow-[0_0_30px_-12px_var(--accent)]"
           >
             LinkedIn
           </a>

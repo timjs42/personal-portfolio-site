@@ -11,7 +11,7 @@ export default function Projects() {
           <Link
             key={project.slug}
             href={`/projects/${project.slug}`}
-            className="block p-6 rounded-2xl border border-secondary/30 hover:border-accent hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[0_0_40px_-10px_var(--accent)] transition-all duration-signature ease-signature"
+            className="block p-6 rounded-2xl border border-secondary/30 hover:border-accent hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[0_0_40px_-10px_var(--accent)] transition-[translate,scale,border-color,box-shadow] duration-signature ease-signature"
           >
             <h2
               className="font-display text-xl font-semibold text-foreground mb-2"
