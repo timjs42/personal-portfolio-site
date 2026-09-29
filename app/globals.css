@@ -45,6 +45,90 @@ body {
     animation: hero-enter var(--enter-duration, 1100ms) var(--ease-fluid)
       var(--enter-delay, 0ms) backwards;
   }
+
+  .cta-nudge {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-nudge .cta-arrow {
+    animation: cta-arrow 1.5s var(--ease-fluid) 1.5s infinite;
+  }
+
+  .cta-ring {
+    position: relative;
+  }
+
+  .cta-ring::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    border: 1.5px solid var(--primary);
+    opacity: 0;
+    animation: cta-ring 1.8s ease-out 1.5s infinite;
+    pointer-events: none;
+  }
+
+  .cta-nudge::after {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 40%;
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.45), transparent);
+    transform: translateX(-120%) skewX(-20deg);
+    animation: cta-shine 3s ease-in-out 1.5s infinite;
+    pointer-events: none;
+  }
+
+  .cta-nudge:hover::after,
+  .cta-nudge:focus-visible::after,
+  .cta-nudge:hover .cta-arrow,
+  .cta-nudge:focus-visible .cta-arrow,
+  .cta-ring:hover::before,
+  .cta-ring:focus-within::before {
+    animation: none;
+  }
+}
+
+@keyframes cta-arrow {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(4px);
+  }
+  40% {
+    transform: translateY(-1px);
+  }
+}
+
+@keyframes cta-ring {
+  0%,
+  45% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  48% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.15, 1.5);
+  }
+}
+
+@keyframes cta-shine {
+  0%,
+  45% {
+    transform: translateX(-120%) skewX(-20deg);
+  }
+  90%,
+  100% {
+    transform: translateX(320%) skewX(-20deg);
+  }
 }
 
 @keyframes hero-enter {
