@@ -2,61 +2,82 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { projects } from "@/lib/projects";
 
-const ARC_STEP = 26;
-const MAX_ROTATION = ARC_STEP * (projects.length - 1);
-const RADIUS = 170;
-const DRAG_SENSITIVITY = 0.35;
-const MIDDLE_INDEX = Math.floor((projects.length - 1) / 2);
+const LAST_INDEX = projects.length - 1;
+const PX_PER_CARD = 75;
+
+const OFFSET_X = 18;
+const OFFSET_Y = -12;
+const SCALE_STEP = 0.06;
+const VISIBLE_BEHIND = 3;
+const THROW_X = 260;
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
 }
 
-function cardTransform(angle: number) {
-  return `rotateY(${angle}deg) translateZ(${RADIUS}px) rotateY(${-angle}deg)`;
-}
-
-function activeIndexFor(rotation: number) {
-  return clamp(Math.round(-rotation / ARC_STEP), 0, projects.length - 1);
+function cardStyle(offset: number) {
+  if (offset < 0) {
+    return {
+      transform: `translateX(${offset * THROW_X}px) rotate(${offset * 10}deg)`,
+      opacity: clamp(1 + offset, 0, 1),
+      zIndex: projects.length + 1,
+    };
+  }
+  return {
+    transform: `translate(${offset * OFFSET_X}px, ${offset * OFFSET_Y}px) scale(${1 - offset * SCALE_STEP})`,
+    opacity: clamp(VISIBLE_BEHIND - offset, 0, 1) * (1 - offset * 0.2),
+    zIndex: Math.round(projects.length - offset),
+  };
 }
 
 export default function ProjectRoulette() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const rotationRef = useRef(0);
+  const positionRef = useRef(0);
   const settleRef = useRef(false);
   const frameRef = useRef(0);
   const cardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
-  const dragRef = useRef({ dragging: false, captured: false, pointerId: 0, startX: 0, startRotation: 0, moved: 0 });
+  const dragRef = useRef({ dragging: false, captured: false, pointerId: 0, startX: 0, startPosition: 0, moved: 0 });
 
   const writeTransforms = () => {
     frameRef.current = 0;
-    const transition = settleRef.current ? "transform 500ms var(--ease-fluid)" : "none";
+    const transition = settleRef.current
+      ? "transform 500ms var(--ease-fluid), opacity 500ms var(--ease-fluid)"
+      : "none";
     cardRefs.current.forEach((card, i) => {
       if (!card) return;
+      const style = cardStyle(i - positionRef.current);
       card.style.transition = transition;
-      card.style.transform = cardTransform(i * ARC_STEP + rotationRef.current);
+      card.style.transform = style.transform;
+      card.style.opacity = String(style.opacity);
+      card.style.zIndex = String(style.zIndex);
+      card.style.pointerEvents = style.opacity < 0.05 ? "none" : "";
     });
-    setActiveIndex(activeIndexFor(rotationRef.current));
+    setActiveIndex(clamp(Math.round(positionRef.current), 0, LAST_INDEX));
   };
 
-  const applyRotation = (deg: number, settle = false) => {
-    rotationRef.current = deg;
+  const applyPosition = (position: number, settle = false) => {
+    positionRef.current = position;
     settleRef.current = settle;
     if (frameRef.current === 0) frameRef.current = requestAnimationFrame(writeTransforms);
   };
 
   useEffect(() => {
-    if (window.matchMedia("(max-width: 1023px)").matches) {
-      applyRotation(-MIDDLE_INDEX * ARC_STEP);
-    }
     return () => {
       cancelAnimationFrame(frameRef.current);
       frameRef.current = 0;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const goTo = (index: number) => {
+    applyPosition(clamp(index, 0, LAST_INDEX), true);
+  };
+
+  const step = (direction: number) => {
+    goTo(Math.round(positionRef.current) + direction);
+  };
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     dragRef.current = {
@@ -64,7 +85,7 @@ export default function ProjectRoulette() {
       captured: false,
       pointerId: e.pointerId,
       startX: e.clientX,
-      startRotation: rotationRef.current,
+      startPosition: positionRef.current,
       moved: 0,
     };
   };
@@ -78,14 +99,13 @@ export default function ProjectRoulette() {
       drag.captured = true;
       e.currentTarget.setPointerCapture(drag.pointerId);
     }
-    applyRotation(clamp(drag.startRotation + delta * DRAG_SENSITIVITY, -MAX_ROTATION, 0));
+    applyPosition(clamp(drag.startPosition - delta / PX_PER_CARD, 0, LAST_INDEX));
   };
 
   const handlePointerUp = () => {
     if (!dragRef.current.dragging) return;
     dragRef.current.dragging = false;
-    const nearest = clamp(Math.round(rotationRef.current / ARC_STEP) * ARC_STEP, -MAX_ROTATION, 0);
-    applyRotation(nearest, true);
+    goTo(Math.round(positionRef.current));
     setTimeout(() => {
       dragRef.current.moved = 0;
     }, 0);
@@ -95,22 +115,25 @@ export default function ProjectRoulette() {
     if (!dragRef.current.captured) handlePointerUp();
   };
 
-  const handleCardClick =(e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleCardClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (dragRef.current.moved > 6) {
       e.preventDefault();
     }
   };
 
+  const arrowClass =
+    "w-10 h-10 flex items-center justify-center rounded-full border border-secondary/30 text-foreground transition-[border-color,color,opacity] duration-signature ease-signature hover:border-accent hover:text-accent disabled:opacity-30 disabled:pointer-events-none";
+
   return (
-    <div className="w-full flex flex-col items-center gap-8">
-      <div className="[perspective:1100px] w-full overflow-hidden flex items-center justify-center" style={{ height: 260 }}>
+    <div className="w-full flex flex-col items-center gap-6">
+      <div className="w-full flex items-center justify-center" style={{ height: 260 }}>
         <div
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
           onPointerLeave={handlePointerLeave}
           onPointerCancel={handlePointerUp}
-          className="relative [transform-style:preserve-3d] cursor-grab active:cursor-grabbing touch-none"
+          className="relative cursor-grab active:cursor-grabbing touch-none"
           style={{ width: 220, height: 220 }}
         >
           {projects.map((project, i) => {
@@ -123,8 +146,8 @@ export default function ProjectRoulette() {
                 href={`/projects/${project.slug}`}
                 onClick={handleCardClick}
                 onDragStart={(e) => e.preventDefault()}
-                className="absolute inset-0 flex flex-col justify-center p-5 rounded-2xl border border-secondary/30 bg-background/90 hover:border-accent transition-colors select-none"
-                style={{ transform: cardTransform(i * ARC_STEP), transition: "none" }}
+                className="absolute inset-0 flex flex-col justify-center p-5 rounded-2xl border border-secondary/30 bg-background hover:border-accent transition-colors select-none"
+                style={{ ...cardStyle(i), transition: "none" }}
               >
                 <h3 className="font-display text-base font-semibold text-foreground mb-3">
                   {project.title}
@@ -143,6 +166,27 @@ export default function ProjectRoulette() {
             );
           })}
         </div>
+      </div>
+
+      <div className="flex items-center gap-4">
+        <button
+          type="button"
+          onClick={() => step(-1)}
+          disabled={activeIndex === 0}
+          aria-label="Previous project"
+          className={arrowClass}
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        <button
+          type="button"
+          onClick={() => step(1)}
+          disabled={activeIndex === LAST_INDEX}
+          aria-label="Next project"
+          className={arrowClass}
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
       </div>
 
       <div className="flex gap-2">
