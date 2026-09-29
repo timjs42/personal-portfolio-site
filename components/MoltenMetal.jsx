@@ -1,5 +1,9 @@
-// Vendored from reactbits.dev (MoltenMetal, JS+CSS variant), unmodified.
+// Vendored from reactbits.dev (MoltenMetal, JS+CSS variant).
 import { useEffect, useRef } from 'react';
+
+const RENDER_SCALE = 0.6;
+const TARGET_FPS = 30;
+const FRAME_INTERVAL = 1000 / TARGET_FPS;
 import { Renderer, Program, Mesh, Triangle } from 'ogl';
 import './MoltenMetal.css';
 
@@ -156,8 +160,12 @@ const MoltenMetal = ({
       alpha: true,
       premultipliedAlpha: true,
       antialias: false,
-      dpr: Math.min(window.devicePixelRatio || 1, 2)
+      depth: false,
+      stencil: false,
+      powerPreference: 'low-power',
+      dpr: Math.min(window.devicePixelRatio || 1, 1) * RENDER_SCALE
     });
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
@@ -234,20 +242,32 @@ const MoltenMetal = ({
     let raf = 0;
     let isVisible = true;
     let isPageVisible = !document.hidden;
-    const t0 = performance.now();
+    let elapsed = 0;
+    let lastFrame = 0;
 
     const loop = t => {
-      program.uniforms.iTime.value = (t - t0) * 0.001;
-      currentMouse[0] += 0.05 * (targetMouse[0] - currentMouse[0]);
-      currentMouse[1] += 0.05 * (targetMouse[1] - currentMouse[1]);
+      raf = requestAnimationFrame(loop);
+      if (lastFrame === 0) lastFrame = t;
+      const dt = t - lastFrame;
+      if (dt < FRAME_INTERVAL - 2) return;
+      lastFrame = t;
+      elapsed += Math.min(dt, 100);
+
+      program.uniforms.iTime.value = elapsed * 0.001;
+      const ease = 1 - Math.pow(0.95, (dt * 60) / 1000);
+      currentMouse[0] += ease * (targetMouse[0] - currentMouse[0]);
+      currentMouse[1] += ease * (targetMouse[1] - currentMouse[1]);
       program.uniforms.uMouse.value[0] = currentMouse[0];
       program.uniforms.uMouse.value[1] = currentMouse[1];
       renderer.render({ scene: mesh });
-      raf = requestAnimationFrame(loop);
     };
 
     const tryStart = () => {
-      if (isVisible && isPageVisible && raf === 0) raf = requestAnimationFrame(loop);
+      if (reducedMotion) return;
+      if (isVisible && isPageVisible && raf === 0) {
+        lastFrame = 0;
+        raf = requestAnimationFrame(loop);
+      }
     };
     const tryStop = () => {
       if (raf !== 0) {
@@ -330,6 +350,7 @@ const MoltenMetal = ({
     u.uBackgroundColor.value[0] = bg[0];
     u.uBackgroundColor.value[1] = bg[1];
     u.uBackgroundColor.value[2] = bg[2];
+    ctx.renderer.render({ scene: ctx.mesh });
   }, [
     color1,
     color2,

@@ -53,7 +53,7 @@ export default async function ProjectDetail({
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="h-12 px-6 flex items-center justify-center rounded-full bg-accent text-background font-medium transition-all duration-signature ease-signature hover:scale-[1.03] hover:-rotate-1 hover:shadow-[0_0_30px_-8px_var(--accent)]"
+            className="h-12 px-6 flex items-center justify-center rounded-full bg-accent text-background font-medium transition-[scale,rotate,box-shadow] duration-signature ease-signature hover:scale-[1.03] hover:-rotate-1 hover:shadow-[0_0_30px_-8px_var(--accent)]"
           >
             View live site
           </a>

@@ -40,7 +40,7 @@ export default function Nav() {
           </Link>
           <Link
             href="/projects"
-            className="text-sm px-4 py-1.5 rounded-full bg-accent text-background font-medium transition-all duration-signature ease-signature hover:scale-[1.03] hover:shadow-[0_0_20px_-8px_var(--accent)]"
+            className="text-sm px-4 py-1.5 rounded-full bg-accent text-background font-medium transition-[scale,box-shadow] duration-signature ease-signature hover:scale-[1.03] hover:shadow-[0_0_20px_-8px_var(--accent)]"
           >
             See All Projects
           </Link>
@@ -98,7 +98,7 @@ export default function Nav() {
           <Link
             href="/projects"
             onClick={() => setIsOpen(false)}
-            className="self-start text-sm px-4 py-1.5 rounded-full bg-accent text-background font-medium transition-all duration-signature ease-signature hover:scale-[1.03] hover:shadow-[0_0_20px_-8px_var(--accent)]"
+            className="self-start text-sm px-4 py-1.5 rounded-full bg-accent text-background font-medium transition-[scale,box-shadow] duration-signature ease-signature hover:scale-[1.03] hover:shadow-[0_0_20px_-8px_var(--accent)]"
           >
             See All Projects
           </Link>

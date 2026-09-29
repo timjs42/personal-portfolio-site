@@ -50,7 +50,7 @@ export default function NotFoundGame() {
     let score = 0;
     let tickInterval = TICK_START_MS;
     let lastTick = 0;
-    let animationFrame: number;
+    let animationFrame = 0;
     let touchStart: Point | null = null;
 
     function resetGame() {
@@ -66,6 +66,7 @@ export default function NotFoundGame() {
       tickInterval = TICK_START_MS;
       lastTick = 0;
       state = "playing";
+      if (animationFrame === 0) animationFrame = requestAnimationFrame(loop);
     }
 
     function setDirection(dx: number, dy: number) {
@@ -184,18 +185,15 @@ export default function NotFoundGame() {
     }
 
     function loop(timestamp: number) {
-      if (state === "playing") {
-        if (timestamp - lastTick >= tickInterval) {
-          lastTick = timestamp;
-          update();
-        }
+      if (timestamp - lastTick >= tickInterval) {
+        lastTick = timestamp;
+        update();
+        draw();
       }
-      draw();
-      animationFrame = requestAnimationFrame(loop);
+      animationFrame = state === "playing" ? requestAnimationFrame(loop) : 0;
     }
 
     draw();
-    animationFrame = requestAnimationFrame(loop);
 
     window.addEventListener("keydown", handleKeyDown);
     el.addEventListener("pointerdown", handlePointerDown);
