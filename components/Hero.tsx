@@ -3,7 +3,7 @@
 import { useEffect, useState, type CSSProperties } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { ChevronDown } from "lucide-react";
+import { ArrowDown, ArrowRight, ChevronDown } from "lucide-react";
 import ProjectRoulette from "@/components/ProjectRoulette";
 import { THEME_COLORS } from "@/lib/theme";
 
@@ -86,13 +86,18 @@ export default function Hero() {
             </p>
           </div>
 
-          <a
-            href="#skills"
-            onClick={handleScrollDown}
-            className="hidden lg:flex self-start h-12 px-6 items-center justify-center rounded-full bg-primary text-background font-medium transition-[scale,rotate,box-shadow] duration-signature ease-signature hover:scale-[1.03] hover:-rotate-1 hover:shadow-[0_0_30px_-8px_var(--primary)]"
-          >
-            Scroll Down
-          </a>
+          <div className={`hidden lg:flex self-start rounded-full ${showScrollHint ? "cta-ring" : ""}`}>
+            <a
+              href="#skills"
+              onClick={handleScrollDown}
+              className={`h-12 px-6 flex items-center justify-center gap-2 rounded-full bg-primary text-background font-medium transition-[scale,rotate,box-shadow] duration-signature ease-signature hover:scale-[1.03] hover:-rotate-1 hover:shadow-[0_0_30px_-8px_var(--primary)] ${
+                showScrollHint ? "cta-nudge" : ""
+              }`}
+            >
+              Scroll Down
+              <ArrowDown aria-hidden="true" className="cta-arrow w-4 h-4" />
+            </a>
+          </div>
         </div>
 
         <div className="flex flex-col items-center gap-6">
@@ -103,9 +108,15 @@ export default function Hero() {
           <Link
             style={enter(700, 16, 12, 770)}
             href="/projects"
-            className="hero-enter h-12 px-6 flex items-center justify-center rounded-full bg-accent text-background font-medium transition-[scale,rotate,box-shadow] duration-signature ease-signature hover:scale-[1.03] hover:-rotate-1 hover:shadow-[0_0_30px_-8px_var(--accent)]"
+            className="group hero-enter relative h-12 px-6 flex items-center justify-center rounded-full bg-accent text-background font-medium transition-[scale,rotate,box-shadow] duration-signature ease-signature hover:scale-[1.03] hover:-rotate-1 hover:shadow-[0_0_30px_-8px_var(--accent)]"
           >
-            See All Projects
+            <span className="transition-transform duration-signature ease-signature group-hover:-translate-x-3 group-focus-visible:-translate-x-3">
+              See All Projects
+            </span>
+            <ArrowRight
+              aria-hidden="true"
+              className="absolute right-3 w-4 h-4 opacity-0 -translate-x-2 transition-[translate,opacity] duration-signature ease-signature group-hover:opacity-100 group-hover:translate-x-0 group-focus-visible:opacity-100 group-focus-visible:translate-x-0"
+            />
           </Link>
         </div>
       </div>
