@@ -119,7 +119,7 @@ export default function Home() {
             GitHub
           </a>
           <a
-            href="https://www.linkedin.com/in/timothy-sheu-6b1719220/"
+            href="https://www.linkedin.com/in/timothy-sheu/"
             target="_blank"
             rel="noopener noreferrer"
             className="h-12 px-6 flex items-center justify-center rounded-full border border-secondary/30 text-foreground font-medium transition-[border-color,box-shadow] duration-signature ease-signature hover:border-accent hover:shadow-[0_0_30px_-12px_var(--accent)]"
