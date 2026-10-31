@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { projects } from "@/lib/projects";
+import { projects, stackOf } from "@/lib/projects";
 
 const LAST_INDEX = projects.length - 1;
 const PX_PER_CARD = 75;
@@ -153,7 +153,7 @@ export default function ProjectRoulette() {
                   {project.title}
                 </h3>
                 <div className="flex gap-2 flex-wrap">
-                  {project.tags.map((tag) => (
+                  {stackOf(project).map((tag) => (
                     <span
                       key={tag}
                       className="font-mono text-xs px-2 py-1 rounded-full bg-secondary/20 text-primary"

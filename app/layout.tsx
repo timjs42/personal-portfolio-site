@@ -1,22 +1,30 @@
 import type { Metadata } from "next";
-import { Geist, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { ViewTransitions } from "next-view-transitions";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import "./globals.css";
 
-const geistSans = Geist({
+// Self-hosted latin subsets of the Google Fonts variable files. next/font/google
+// intermittently breaks Turbopack when Google serves `/l/font?kit=…&skey=…`
+// URLs, so the fonts live in the repo instead of being fetched at build time.
+const geistSans = localFont({
+  src: "./fonts/Geist-Variable.woff2",
   variable: "--font-geist-sans",
-  subsets: ["latin"],
+  weight: "100 900",
+  display: "swap",
 });
-const spaceGrotesk = Space_Grotesk({
+const spaceGrotesk = localFont({
+  src: "./fonts/SpaceGrotesk-Variable.woff2",
   variable: "--font-space-grotesk",
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: "300 700",
+  display: "swap",
 });
-const jetbrainsMono = JetBrains_Mono({
+const jetbrainsMono = localFont({
+  src: "./fonts/JetBrainsMono-Variable.woff2",
   variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
+  weight: "100 800",
+  display: "swap",
 });
 
 const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL

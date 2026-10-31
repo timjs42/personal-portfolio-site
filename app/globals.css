@@ -7,6 +7,11 @@
   --secondary: #4c615a;
   --accent: #7e9c7a;
 
+  /* Per-domain accents for project cards and filters. */
+  --domain-web: var(--accent);
+  --domain-data: #c2a66b;
+  --domain-ml: #8fa3b8;
+
   --ease-fluid: cubic-bezier(0.16, 1, 0.3, 1);
   --duration-vt: 220ms;
 }
