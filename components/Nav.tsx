@@ -38,9 +38,6 @@ export default function Nav() {
           <Link href="/#experience" className="text-sm text-foreground hover:text-accent transition-colors">
             Experience
           </Link>
-          <Link href="/#mentions" className="text-sm text-foreground hover:text-accent transition-colors">
-            Mentions
-          </Link>
           <Link href="/#contact" className="text-sm text-foreground hover:text-accent transition-colors">
             Contact
           </Link>
@@ -88,9 +85,6 @@ export default function Nav() {
           </Link>
           <Link href="/#experience" onClick={() => setIsOpen(false)} className="text-sm text-foreground hover:text-accent transition-colors">
             Experience
-          </Link>
-          <Link href="/#mentions" onClick={() => setIsOpen(false)} className="text-sm text-foreground hover:text-accent transition-colors">
-            Mentions
           </Link>
           <Link href="/#contact" onClick={() => setIsOpen(false)} className="text-sm text-foreground hover:text-accent transition-colors">
             Contact
