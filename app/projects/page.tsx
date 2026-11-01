@@ -3,7 +3,7 @@ import ProjectBrowser, { ProjectBrowserFallback } from "@/components/ProjectBrow
 
 export default function Projects() {
   return (
-    <main className="flex-1 px-6 py-16 max-w-6xl mx-auto w-full">
+    <main className="flex-1 px-6 py-16 max-w-3xl mx-auto w-full">
       {/* useSearchParams needs a Suspense boundary so the page can still be
           prerendered; the fallback is the unfiltered list. */}
       <Suspense fallback={<ProjectBrowserFallback />}>

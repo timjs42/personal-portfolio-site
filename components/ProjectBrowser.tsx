@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type CSSProperties, type ElementType } from "react";
+import type { CSSProperties, ElementType } from "react";
 import { useSearchParams } from "next/navigation";
 import { Link } from "next-view-transitions";
 import {
@@ -18,7 +18,7 @@ import {
   SiTailwindcss,
   SiTypescript,
 } from "react-icons/si";
-import { ArrowUpRight, Brain, Code, Globe, SlidersHorizontal } from "lucide-react";
+import { ArrowUpRight, Brain, Code, Globe } from "lucide-react";
 import { projects, type Domain, type Project } from "@/lib/projects";
 import ProjectThumb, { DOMAIN_COLORS } from "@/components/ProjectThumb";
 
@@ -116,103 +116,82 @@ function ProjectBrowserView({
   onToggle?: (key: string, value: string) => void;
   onClear?: () => void;
 }) {
-  const [filtersOpen, setFiltersOpen] = useState(false);
   const results = projects.filter((p) => matches(p, filters));
   const activeCount = Object.values(filters).reduce((n, values) => n + values.length, 0);
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-12">
-      <aside className="lg:sticky lg:top-24 lg:self-start">
-        <div className="flex items-baseline justify-between">
+    <div>
+      <div className="flex items-baseline justify-between mb-6">
+        <h1 className="font-display text-3xl font-semibold text-foreground">Projects</h1>
+        <p className="font-mono text-xs text-primary" aria-live="polite">
+          {results.length} of {projects.length}
+        </p>
+      </div>
+
+      <div className="flex flex-col gap-3 mb-8">
+        {GROUPS.map((group) => (
+          <div
+            key={group.key}
+            role="group"
+            aria-labelledby={`filter-${group.key}`}
+            className="flex flex-wrap items-center gap-2"
+          >
+            <span id={`filter-${group.key}`} className="w-20 shrink-0 font-mono text-xs text-secondary">
+              {group.label.toLowerCase()}
+            </span>
+            {optionsFor(group).map((value) => {
+              const checked = filters[group.key]?.includes(value) ?? false;
+              const count = projects.filter(
+                (p) => matches(p, filters, group.key) && group.valuesOf(p).includes(value),
+              ).length;
+              const color =
+                group.key === "domain" ? DOMAIN_COLORS[value as Domain] : "var(--accent)";
+              return (
+                <button
+                  key={value}
+                  type="button"
+                  aria-pressed={checked}
+                  disabled={count === 0 && !checked}
+                  onClick={() => onToggle?.(group.key, value)}
+                  className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm transition-colors disabled:opacity-40 disabled:pointer-events-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--c) ${
+                    checked
+                      ? "border-(--c) bg-[color-mix(in_oklab,var(--c)_18%,transparent)] text-foreground"
+                      : "border-line text-primary hover:border-(--c) hover:text-foreground"
+                  }`}
+                  style={{ "--c": color } as CSSProperties}
+                >
+                  {value}
+                  <span className="font-mono text-xs text-secondary">{count}</span>
+                </button>
+              );
+            })}
+          </div>
+        ))}
+        {activeCount > 0 && (
           <button
             type="button"
-            onClick={() => setFiltersOpen((open) => !open)}
-            aria-expanded={filtersOpen}
-            aria-controls="project-filters"
-            className="flex items-center gap-2 font-display text-sm font-semibold text-foreground lg:pointer-events-none"
+            onClick={onClear}
+            className="self-start font-mono text-xs text-accent hover:text-foreground transition-colors"
           >
-            <SlidersHorizontal className="size-4 lg:hidden" aria-hidden />
-            Filters
-            {activeCount > 0 && (
-              <span className="font-mono text-xs text-accent">({activeCount})</span>
-            )}
+            clear filters ({activeCount})
           </button>
-          {activeCount > 0 && (
-            <button
-              type="button"
-              onClick={onClear}
-              className="font-mono text-xs text-accent hover:text-foreground transition-colors"
-            >
-              clear
-            </button>
-          )}
-        </div>
-
-        <div
-          id="project-filters"
-          className={`${filtersOpen ? "block" : "hidden"} lg:block lg:border-r lg:border-line lg:pr-6`}
-        >
-          {GROUPS.map((group) => (
-            <fieldset key={group.key} className="mt-6">
-              <legend className="font-mono text-xs text-secondary mb-2">
-                {group.label.toLowerCase()}
-              </legend>
-              {optionsFor(group).map((value) => {
-                const checked = filters[group.key]?.includes(value) ?? false;
-                const count = projects.filter(
-                  (p) => matches(p, filters, group.key) && group.valuesOf(p).includes(value),
-                ).length;
-                const color =
-                  group.key === "domain" ? DOMAIN_COLORS[value as Domain] : "var(--accent)";
-                return (
-                  <label
-                    key={value}
-                    className={`flex items-center justify-between gap-3 py-1 text-sm cursor-pointer transition-colors ${
-                      checked ? "text-foreground" : "text-primary hover:text-foreground"
-                    }`}
-                  >
-                    <span className="flex items-center gap-2.5">
-                      <input
-                        type="checkbox"
-                        checked={checked}
-                        onChange={() => onToggle?.(group.key, value)}
-                        className="size-3.5 appearance-none rounded-[4px] border border-secondary checked:border-(--c) checked:bg-(--c) transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-                        style={{ "--c": color } as CSSProperties}
-                      />
-                      {value}
-                    </span>
-                    <span className="font-mono text-xs text-secondary">{count}</span>
-                  </label>
-                );
-              })}
-            </fieldset>
-          ))}
-        </div>
-      </aside>
-
-      <div>
-        <div className="flex items-baseline justify-between mb-8">
-          <h1 className="font-display text-3xl font-semibold text-foreground">Projects</h1>
-          <p className="font-mono text-xs text-primary" aria-live="polite">
-            {results.length} of {projects.length}
-          </p>
-        </div>
-
-        {results.length > 0 ? (
-          <div className="grid gap-6">
-            {results.map((project) => (
-              <SpecCard key={project.slug} project={project} />
-            ))}
-          </div>
-        ) : (
-          <div className="rounded-2xl border border-dashed border-secondary/50 p-8 text-center text-sm text-primary">
-            No projects match those filters.{" "}
-            <button type="button" onClick={onClear} className="text-accent hover:text-foreground transition-colors">
-              Clear filters
-            </button>
-          </div>
         )}
       </div>
+
+      {results.length > 0 ? (
+        <div className="grid gap-6">
+          {results.map((project) => (
+            <SpecCard key={project.slug} project={project} />
+          ))}
+        </div>
+      ) : (
+        <div className="rounded-2xl border border-dashed border-secondary/50 p-8 text-center text-sm text-primary">
+          No projects match those filters.{" "}
+          <button type="button" onClick={onClear} className="text-accent hover:text-foreground transition-colors">
+            Clear filters
+          </button>
+        </div>
+      )}
     </div>
   );
 }
