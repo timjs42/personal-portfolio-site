@@ -59,40 +59,35 @@ export default function Home() {
               <h3 className="font-mono text-sm text-primary mb-6 text-center">
                 {group.category}
               </h3>
-              <div className="flex flex-wrap justify-center gap-4 sm:gap-5">
+              <ul className="flex flex-wrap justify-center gap-3">
                 {group.items.map((skill) => {
                   const Icon = skill.icon;
                   const tooDark = isTooDarkForTile(skill.color);
                   const glowColor = tooDark ? "var(--accent)" : skill.color;
                   const iconColor = tooDark ? "var(--foreground)" : skill.color;
                   return (
-                    <div
+                    <li
                       key={skill.name}
                       className={
                         group.category === "Currently Learning"
-                          ? "group relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-2xl border border-accent/60 bg-secondary/10 flex items-center justify-center overflow-hidden transition-transform duration-signature ease-signature hover:-translate-y-1"
-                          : "group relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-2xl border border-secondary/30 bg-secondary/10 flex items-center justify-center overflow-hidden transition-transform duration-signature ease-signature hover:-translate-y-1"
+                          ? "group relative flex items-center gap-2.5 rounded-xl border border-accent/60 bg-secondary/10 px-3.5 py-2.5 transition-transform duration-signature ease-signature hover:-translate-y-0.5"
+                          : "group relative flex items-center gap-2.5 rounded-xl border border-secondary/30 bg-secondary/10 px-3.5 py-2.5 transition-transform duration-signature ease-signature hover:-translate-y-0.5"
                       }
                       style={{ "--tile-glow": glowColor } as CSSProperties}
                     >
                       <div
-                        className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-signature ease-signature group-hover:opacity-100"
+                        className="pointer-events-none absolute inset-0 rounded-xl opacity-0 transition-opacity duration-signature ease-signature group-hover:opacity-100"
                         style={{
                           boxShadow: "0 0 24px -6px var(--tile-glow)",
                           border: "1px solid var(--tile-glow)",
                         }}
                       />
-                      <Icon
-                        className="w-7 h-7 sm:w-8 sm:h-8 transition-transform duration-signature ease-signature group-hover:scale-110"
-                        style={{ color: iconColor }}
-                      />
-                      <span className="absolute inset-x-0 bottom-0 bg-background/90 text-foreground text-[10px] sm:text-xs font-medium text-center py-1.5 translate-y-full group-hover:translate-y-0 transition-transform duration-signature ease-signature">
-                        {skill.name}
-                      </span>
-                    </div>
+                      <Icon aria-hidden className="size-5 shrink-0" style={{ color: iconColor }} />
+                      <span className="text-sm font-medium text-foreground">{skill.name}</span>
+                    </li>
                   );
                 })}
-              </div>
+              </ul>
             </div>
           ))}
         </div>
