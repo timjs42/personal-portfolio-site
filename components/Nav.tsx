@@ -32,6 +32,9 @@ export default function Nav() {
           <Link href="/" className="text-sm text-foreground hover:text-accent transition-colors">
             Home
           </Link>
+          <Link href="/projects" className="text-sm text-foreground hover:text-accent transition-colors">
+            Projects
+          </Link>
           <Link href="/#experience" className="text-sm text-foreground hover:text-accent transition-colors">
             Experience
           </Link>
@@ -40,12 +43,6 @@ export default function Nav() {
           </Link>
           <Link href="/#contact" className="text-sm text-foreground hover:text-accent transition-colors">
             Contact
-          </Link>
-          <Link
-            href="/projects"
-            className="text-sm px-4 py-1.5 rounded-full bg-accent text-background font-medium transition-[scale,box-shadow] duration-signature ease-signature hover:scale-[1.03] hover:shadow-[0_0_20px_-8px_var(--accent)]"
-          >
-            See All Projects
           </Link>
           <div className="flex items-center gap-4 pl-4 border-l border-secondary/30">
             <a href="https://github.com/timjs42/personal-portfolio-site" target="_blank" rel="noopener noreferrer" aria-label="View source code for this site">
@@ -92,6 +89,9 @@ export default function Nav() {
           <Link href="/" onClick={() => setIsOpen(false)} className="text-sm text-foreground hover:text-accent transition-colors">
             Home
           </Link>
+          <Link href="/projects" onClick={() => setIsOpen(false)} className="text-sm text-foreground hover:text-accent transition-colors">
+            Projects
+          </Link>
           <Link href="/#experience" onClick={() => setIsOpen(false)} className="text-sm text-foreground hover:text-accent transition-colors">
             Experience
           </Link>
@@ -100,13 +100,6 @@ export default function Nav() {
           </Link>
           <Link href="/#contact" onClick={() => setIsOpen(false)} className="text-sm text-foreground hover:text-accent transition-colors">
             Contact
-          </Link>
-          <Link
-            href="/projects"
-            onClick={() => setIsOpen(false)}
-            className="self-start text-sm px-4 py-1.5 rounded-full bg-accent text-background font-medium transition-[scale,box-shadow] duration-signature ease-signature hover:scale-[1.03] hover:shadow-[0_0_20px_-8px_var(--accent)]"
-          >
-            See All Projects
           </Link>
           <div className="flex items-center gap-4 pt-2 border-t border-secondary/30">
             <a href="https://github.com/timjs42/personal-portfolio-site" target="_blank" rel="noopener noreferrer" aria-label="View source code for this site">

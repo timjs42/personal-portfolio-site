@@ -33,7 +33,7 @@ export default function Hero() {
       "(prefers-reduced-motion: reduce)"
     ).matches;
     document
-      .getElementById("skills")
+      .getElementById("experience")
       ?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
   };
 
@@ -86,18 +86,16 @@ export default function Hero() {
             </p>
           </div>
 
-          <div className={`hidden lg:flex self-start rounded-full ${showScrollHint ? "cta-ring" : ""}`}>
-            <a
-              href="#skills"
-              onClick={handleScrollDown}
-              className={`h-12 px-6 flex items-center justify-center gap-2 rounded-full bg-primary text-background font-medium transition-[scale,rotate,box-shadow] duration-signature ease-signature hover:scale-[1.03] hover:-rotate-1 hover:shadow-[0_0_30px_-8px_var(--primary)] ${
-                showScrollHint ? "cta-nudge" : ""
-              }`}
-            >
-              Scroll Down
-              <ArrowDown aria-hidden="true" className="cta-arrow w-4 h-4" />
-            </a>
-          </div>
+          <a
+            href="#experience"
+            onClick={handleScrollDown}
+            className={`hidden lg:flex self-start h-12 items-center gap-2 text-primary font-medium hero-text-shadow transition-colors hover:text-foreground ${
+              showScrollHint ? "cta-nudge" : ""
+            }`}
+          >
+            See my experience
+            <ArrowDown aria-hidden="true" className="cta-arrow w-4 h-4" />
+          </a>
         </div>
 
         <div className="flex flex-col items-center gap-6">
@@ -122,7 +120,7 @@ export default function Hero() {
       </div>
 
       <a
-        href="#skills"
+        href="#experience"
         onClick={handleScrollDown}
         aria-label="Scroll down"
         className={`lg:hidden fixed bottom-6 right-6 z-10 text-primary transition-opacity duration-300 ${
