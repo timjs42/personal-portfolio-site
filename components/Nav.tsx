@@ -32,6 +32,9 @@ export default function Nav() {
           <Link href="/" className="text-sm text-foreground hover:text-accent transition-colors">
             Home
           </Link>
+          <Link href="/#experience" className="text-sm text-foreground hover:text-accent transition-colors">
+            Experience
+          </Link>
           <Link href="/#mentions" className="text-sm text-foreground hover:text-accent transition-colors">
             Mentions
           </Link>
@@ -88,6 +91,9 @@ export default function Nav() {
         <div className="md:hidden flex flex-col gap-4 pt-4 pb-2 animate-[vt-blur-in_var(--duration-signature)_var(--ease-signature)]">
           <Link href="/" onClick={() => setIsOpen(false)} className="text-sm text-foreground hover:text-accent transition-colors">
             Home
+          </Link>
+          <Link href="/#experience" onClick={() => setIsOpen(false)} className="text-sm text-foreground hover:text-accent transition-colors">
+            Experience
           </Link>
           <Link href="/#mentions" onClick={() => setIsOpen(false)} className="text-sm text-foreground hover:text-accent transition-colors">
             Mentions

@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import { skills } from "@/lib/skills";
 import { mentionGroups } from "@/lib/mentions";
+import { experience } from "@/lib/experience";
 import Hero from "@/components/Hero";
 
 function isTooDarkForTile(hex: string) {
@@ -16,6 +17,38 @@ export default function Home() {
   return (
     <main className="flex-1">
       <Hero />
+
+      <section id="experience" className="px-6 py-24 max-w-3xl mx-auto w-full border-t border-secondary/30">
+        <h2 className="font-display text-2xl font-semibold text-foreground mb-12 text-center">Experience</h2>
+
+        <ol className="flex flex-col gap-4">
+          {experience.map((role) => (
+            <li
+              key={`${role.title}-${role.organization}`}
+              className="flex flex-col gap-2 border-b border-secondary/30 pb-4"
+            >
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+                <span className="flex flex-col">
+                  <span className="text-foreground font-medium">{role.title}</span>
+                  {role.organization && (
+                    <span className="text-sm text-primary">{role.organization}</span>
+                  )}
+                </span>
+                {role.dates && (
+                  <span className="font-mono text-xs text-primary shrink-0">{role.dates}</span>
+                )}
+              </div>
+              {role.highlights.length > 0 && (
+                <ul className="flex flex-col gap-1 text-sm text-primary list-disc pl-5 marker:text-accent">
+                  {role.highlights.map((highlight) => (
+                    <li key={highlight}>{highlight}</li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ol>
+      </section>
 
       <section id="skills" className="px-6 py-24 max-w-3xl mx-auto w-full border-t border-secondary/30">
         <h2 className="font-display text-2xl font-semibold text-foreground mb-12 text-center">Skills</h2>
