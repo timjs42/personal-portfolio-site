@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import { skills } from "@/lib/skills";
-import { mentionGroups } from "@/lib/mentions";
 import { experience } from "@/lib/experience";
+import { ArrowUpRight } from "lucide-react";
 import Hero from "@/components/Hero";
 
 function isTooDarkForTile(hex: string) {
@@ -18,21 +18,32 @@ export default function Home() {
     <main className="flex-1">
       <Hero />
 
-      <section id="experience" className="px-6 py-24 max-w-3xl mx-auto w-full border-t border-secondary/30">
+      <section id="experience" className="px-6 py-24 max-w-3xl mx-auto w-full border-t border-line">
         <h2 className="font-display text-2xl font-semibold text-foreground mb-12 text-center">Experience</h2>
 
         <ol className="flex flex-col gap-4">
           {experience.map((role) => (
             <li
               key={`${role.title}-${role.organization}`}
-              className="flex flex-col gap-2 border-b border-secondary/30 pb-4"
+              className="flex flex-col gap-2 border-b border-line pb-4"
             >
               <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
                 <span className="flex flex-col">
                   <span className="text-foreground font-medium">{role.title}</span>
-                  {role.organization && (
-                    <span className="text-sm text-primary">{role.organization}</span>
-                  )}
+                  {role.organization &&
+                    (role.url ? (
+                      <a
+                        href={role.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="self-start inline-flex items-center gap-1 text-sm text-primary underline decoration-line underline-offset-4 hover:text-accent hover:decoration-accent transition-colors"
+                      >
+                        {role.organization}
+                        <ArrowUpRight aria-hidden className="size-3.5" />
+                      </a>
+                    ) : (
+                      <span className="text-sm text-primary">{role.organization}</span>
+                    ))}
                 </span>
                 {role.dates && (
                   <span className="font-mono text-xs text-primary shrink-0">{role.dates}</span>
@@ -50,7 +61,7 @@ export default function Home() {
         </ol>
       </section>
 
-      <section id="skills" className="px-6 py-24 max-w-3xl mx-auto w-full border-t border-secondary/30">
+      <section id="skills" className="px-6 py-24 max-w-3xl mx-auto w-full border-t border-line">
         <h2 className="font-display text-2xl font-semibold text-foreground mb-12 text-center">Skills</h2>
 
         <div className="flex flex-col gap-12">
@@ -59,85 +70,41 @@ export default function Home() {
               <h3 className="font-mono text-sm text-primary mb-6 text-center">
                 {group.category}
               </h3>
-              <div className="flex flex-wrap justify-center gap-4 sm:gap-5">
+              <ul className="flex flex-wrap justify-center gap-3">
                 {group.items.map((skill) => {
                   const Icon = skill.icon;
                   const tooDark = isTooDarkForTile(skill.color);
                   const glowColor = tooDark ? "var(--accent)" : skill.color;
                   const iconColor = tooDark ? "var(--foreground)" : skill.color;
                   return (
-                    <div
+                    <li
                       key={skill.name}
                       className={
                         group.category === "Currently Learning"
-                          ? "group relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-2xl border border-accent/60 bg-secondary/10 flex items-center justify-center overflow-hidden transition-transform duration-signature ease-signature hover:-translate-y-1"
-                          : "group relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-2xl border border-secondary/30 bg-secondary/10 flex items-center justify-center overflow-hidden transition-transform duration-signature ease-signature hover:-translate-y-1"
+                          ? "group relative flex items-center gap-2.5 rounded-xl border border-accent/60 bg-secondary/10 px-3.5 py-2.5 transition-transform duration-signature ease-signature hover:-translate-y-0.5"
+                          : "group relative flex items-center gap-2.5 rounded-xl border border-line bg-secondary/10 px-3.5 py-2.5 transition-transform duration-signature ease-signature hover:-translate-y-0.5"
                       }
                       style={{ "--tile-glow": glowColor } as CSSProperties}
                     >
                       <div
-                        className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-signature ease-signature group-hover:opacity-100"
+                        className="pointer-events-none absolute inset-0 rounded-xl opacity-0 transition-opacity duration-signature ease-signature group-hover:opacity-100"
                         style={{
                           boxShadow: "0 0 24px -6px var(--tile-glow)",
                           border: "1px solid var(--tile-glow)",
                         }}
                       />
-                      <Icon
-                        className="w-7 h-7 sm:w-8 sm:h-8 transition-transform duration-signature ease-signature group-hover:scale-110"
-                        style={{ color: iconColor }}
-                      />
-                      <span className="absolute inset-x-0 bottom-0 bg-background/90 text-foreground text-[10px] sm:text-xs font-medium text-center py-1.5 translate-y-full group-hover:translate-y-0 transition-transform duration-signature ease-signature">
-                        {skill.name}
-                      </span>
-                    </div>
+                      <Icon aria-hidden className="size-5 shrink-0" style={{ color: iconColor }} />
+                      <span className="text-sm font-medium text-foreground">{skill.name}</span>
+                    </li>
                   );
                 })}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section id="mentions" className="px-6 py-24 max-w-3xl mx-auto w-full border-t border-secondary/30">
-        <h2 className="font-display text-2xl font-semibold text-foreground mb-12 text-center">Mentions &amp; links</h2>
-
-        <div className="flex flex-col gap-12">
-          {mentionGroups.map((group) => (
-            <div key={group.category}>
-              <h3 className="font-mono text-sm text-primary mb-6 text-center">
-                {group.category}
-              </h3>
-              <ul className="flex flex-col gap-4">
-                {group.items.map((item) => (
-                  <li key={item.url}>
-                    <a
-                      href={item.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-baseline justify-between gap-4 border-b border-secondary/30 pb-3 hover:border-accent transition-colors"
-                    >
-                      <span className="flex flex-col">
-                        <span className="text-foreground font-medium group-hover:text-accent transition-colors">
-                          {item.label}
-                        </span>
-                        <span className="text-sm text-primary">{item.description}</span>
-                      </span>
-                      <span
-                        aria-hidden="true"
-                        className="text-primary group-hover:text-accent transition-colors"
-                      >
-                        &rarr;
-                      </span>
-                    </a>
-                  </li>
-                ))}
               </ul>
             </div>
           ))}
         </div>
       </section>
 
-      <section id="contact" className="px-6 py-24 flex flex-col items-center text-center gap-6 border-t border-secondary/30">
+      <section id="contact" className="px-6 py-24 flex flex-col items-center text-center gap-6 border-t border-line">
         <h2 className="font-display text-2xl font-semibold text-foreground">Let&apos;s connect</h2>
         <p className="text-primary max-w-sm">
           Find me on GitHub or LinkedIn.
@@ -147,7 +114,7 @@ export default function Home() {
             href="https://github.com/timjs42"
             target="_blank"
             rel="noopener noreferrer"
-            className="h-12 px-6 flex items-center justify-center rounded-full border border-secondary/30 text-foreground font-medium transition-[border-color,box-shadow] duration-signature ease-signature hover:border-accent hover:shadow-[0_0_30px_-12px_var(--accent)]"
+            className="h-12 px-6 flex items-center justify-center rounded-full border border-line text-foreground font-medium transition-[border-color,box-shadow] duration-signature ease-signature hover:border-accent hover:shadow-[0_0_30px_-12px_var(--accent)]"
           >
             GitHub
           </a>
@@ -155,7 +122,7 @@ export default function Home() {
             href="https://www.linkedin.com/in/timothy-sheu/"
             target="_blank"
             rel="noopener noreferrer"
-            className="h-12 px-6 flex items-center justify-center rounded-full border border-secondary/30 text-foreground font-medium transition-[border-color,box-shadow] duration-signature ease-signature hover:border-accent hover:shadow-[0_0_30px_-12px_var(--accent)]"
+            className="h-12 px-6 flex items-center justify-center rounded-full border border-line text-foreground font-medium transition-[border-color,box-shadow] duration-signature ease-signature hover:border-accent hover:shadow-[0_0_30px_-12px_var(--accent)]"
           >
             LinkedIn
           </a>

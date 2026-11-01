@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { projects, stackOf } from "@/lib/projects";
+import ProjectThumb from "@/components/ProjectThumb";
 
 const LAST_INDEX = projects.length - 1;
 const PX_PER_CARD = 75;
@@ -122,7 +123,7 @@ export default function ProjectRoulette() {
   };
 
   const arrowClass =
-    "w-10 h-10 flex items-center justify-center rounded-full border border-secondary/30 text-foreground transition-[border-color,color,opacity] duration-signature ease-signature hover:border-accent hover:text-accent disabled:opacity-30 disabled:pointer-events-none";
+    "w-10 h-10 flex items-center justify-center rounded-full border border-line text-foreground transition-[border-color,color,opacity] duration-signature ease-signature hover:border-accent hover:text-accent disabled:opacity-30 disabled:pointer-events-none";
 
   return (
     <div className="w-full flex flex-col items-center gap-6">
@@ -146,21 +147,29 @@ export default function ProjectRoulette() {
                 href={`/projects/${project.slug}`}
                 onClick={handleCardClick}
                 onDragStart={(e) => e.preventDefault()}
-                className="absolute inset-0 flex flex-col justify-center p-5 rounded-2xl border border-secondary/30 bg-background hover:border-accent transition-colors select-none"
+                className="absolute inset-0 flex flex-col overflow-hidden rounded-2xl border border-line bg-background hover:border-accent transition-colors select-none"
                 style={{ ...cardStyle(i), transition: "none" }}
               >
-                <h3 className="font-display text-base font-semibold text-foreground mb-3">
-                  {project.title}
-                </h3>
-                <div className="flex gap-2 flex-wrap">
-                  {stackOf(project).map((tag) => (
-                    <span
-                      key={tag}
-                      className="font-mono text-xs px-2 py-1 rounded-full bg-secondary/20 text-primary"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+                <ProjectThumb
+                  project={project}
+                  sizes="220px"
+                  priority={i === 0}
+                  className="h-28 shrink-0 border-b border-line pointer-events-none"
+                />
+                <div className="flex flex-col gap-2 p-4">
+                  <h3 className="font-display text-base font-semibold leading-tight text-foreground">
+                    {project.title}
+                  </h3>
+                  <div className="flex gap-2 flex-wrap">
+                    {stackOf(project).slice(0, 2).map((tag) => (
+                      <span
+                        key={tag}
+                        className="font-mono text-xs px-2 py-1 rounded-full bg-secondary/20 text-primary"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </Link>
             );

@@ -212,7 +212,7 @@ export default function NotFoundGame() {
       ref={canvasRef}
       aria-label="A small snake game — press space or tap to play, arrow keys or swipe to steer"
       style={{ width: "100%", maxWidth: WIDTH, aspectRatio: `${WIDTH} / ${HEIGHT}` }}
-      className="rounded-2xl border border-secondary/30 touch-none cursor-pointer"
+      className="rounded-2xl border border-line touch-none cursor-pointer"
     />
   );
 }
