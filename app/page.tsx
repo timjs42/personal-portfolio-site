@@ -18,14 +18,14 @@ export default function Home() {
     <main className="flex-1">
       <Hero />
 
-      <section id="experience" className="px-6 py-24 max-w-3xl mx-auto w-full border-t border-secondary/30">
+      <section id="experience" className="px-6 py-24 max-w-3xl mx-auto w-full border-t border-line">
         <h2 className="font-display text-2xl font-semibold text-foreground mb-12 text-center">Experience</h2>
 
         <ol className="flex flex-col gap-4">
           {experience.map((role) => (
             <li
               key={`${role.title}-${role.organization}`}
-              className="flex flex-col gap-2 border-b border-secondary/30 pb-4"
+              className="flex flex-col gap-2 border-b border-line pb-4"
             >
               <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
                 <span className="flex flex-col">
@@ -50,7 +50,7 @@ export default function Home() {
         </ol>
       </section>
 
-      <section id="skills" className="px-6 py-24 max-w-3xl mx-auto w-full border-t border-secondary/30">
+      <section id="skills" className="px-6 py-24 max-w-3xl mx-auto w-full border-t border-line">
         <h2 className="font-display text-2xl font-semibold text-foreground mb-12 text-center">Skills</h2>
 
         <div className="flex flex-col gap-12">
@@ -71,7 +71,7 @@ export default function Home() {
                       className={
                         group.category === "Currently Learning"
                           ? "group relative flex items-center gap-2.5 rounded-xl border border-accent/60 bg-secondary/10 px-3.5 py-2.5 transition-transform duration-signature ease-signature hover:-translate-y-0.5"
-                          : "group relative flex items-center gap-2.5 rounded-xl border border-secondary/30 bg-secondary/10 px-3.5 py-2.5 transition-transform duration-signature ease-signature hover:-translate-y-0.5"
+                          : "group relative flex items-center gap-2.5 rounded-xl border border-line bg-secondary/10 px-3.5 py-2.5 transition-transform duration-signature ease-signature hover:-translate-y-0.5"
                       }
                       style={{ "--tile-glow": glowColor } as CSSProperties}
                     >
@@ -93,7 +93,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="mentions" className="px-6 py-24 max-w-3xl mx-auto w-full border-t border-secondary/30">
+      <section id="mentions" className="px-6 py-24 max-w-3xl mx-auto w-full border-t border-line">
         <h2 className="font-display text-2xl font-semibold text-foreground mb-12 text-center">Mentions &amp; links</h2>
 
         <div className="flex flex-col gap-12">
@@ -109,7 +109,7 @@ export default function Home() {
                       href={item.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-baseline justify-between gap-4 border-b border-secondary/30 pb-3 hover:border-accent transition-colors"
+                      className="group flex items-baseline justify-between gap-4 border-b border-line pb-3 hover:border-accent transition-colors"
                     >
                       <span className="flex flex-col">
                         <span className="text-foreground font-medium group-hover:text-accent transition-colors">
@@ -132,7 +132,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="contact" className="px-6 py-24 flex flex-col items-center text-center gap-6 border-t border-secondary/30">
+      <section id="contact" className="px-6 py-24 flex flex-col items-center text-center gap-6 border-t border-line">
         <h2 className="font-display text-2xl font-semibold text-foreground">Let&apos;s connect</h2>
         <p className="text-primary max-w-sm">
           Find me on GitHub or LinkedIn.
@@ -142,7 +142,7 @@ export default function Home() {
             href="https://github.com/timjs42"
             target="_blank"
             rel="noopener noreferrer"
-            className="h-12 px-6 flex items-center justify-center rounded-full border border-secondary/30 text-foreground font-medium transition-[border-color,box-shadow] duration-signature ease-signature hover:border-accent hover:shadow-[0_0_30px_-12px_var(--accent)]"
+            className="h-12 px-6 flex items-center justify-center rounded-full border border-line text-foreground font-medium transition-[border-color,box-shadow] duration-signature ease-signature hover:border-accent hover:shadow-[0_0_30px_-12px_var(--accent)]"
           >
             GitHub
           </a>
@@ -150,7 +150,7 @@ export default function Home() {
             href="https://www.linkedin.com/in/timothy-sheu/"
             target="_blank"
             rel="noopener noreferrer"
-            className="h-12 px-6 flex items-center justify-center rounded-full border border-secondary/30 text-foreground font-medium transition-[border-color,box-shadow] duration-signature ease-signature hover:border-accent hover:shadow-[0_0_30px_-12px_var(--accent)]"
+            className="h-12 px-6 flex items-center justify-center rounded-full border border-line text-foreground font-medium transition-[border-color,box-shadow] duration-signature ease-signature hover:border-accent hover:shadow-[0_0_30px_-12px_var(--accent)]"
           >
             LinkedIn
           </a>

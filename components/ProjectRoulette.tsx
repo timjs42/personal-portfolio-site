@@ -123,7 +123,7 @@ export default function ProjectRoulette() {
   };
 
   const arrowClass =
-    "w-10 h-10 flex items-center justify-center rounded-full border border-secondary/30 text-foreground transition-[border-color,color,opacity] duration-signature ease-signature hover:border-accent hover:text-accent disabled:opacity-30 disabled:pointer-events-none";
+    "w-10 h-10 flex items-center justify-center rounded-full border border-line text-foreground transition-[border-color,color,opacity] duration-signature ease-signature hover:border-accent hover:text-accent disabled:opacity-30 disabled:pointer-events-none";
 
   return (
     <div className="w-full flex flex-col items-center gap-6">
@@ -147,14 +147,14 @@ export default function ProjectRoulette() {
                 href={`/projects/${project.slug}`}
                 onClick={handleCardClick}
                 onDragStart={(e) => e.preventDefault()}
-                className="absolute inset-0 flex flex-col overflow-hidden rounded-2xl border border-secondary/30 bg-background hover:border-accent transition-colors select-none"
+                className="absolute inset-0 flex flex-col overflow-hidden rounded-2xl border border-line bg-background hover:border-accent transition-colors select-none"
                 style={{ ...cardStyle(i), transition: "none" }}
               >
                 <ProjectThumb
                   project={project}
                   sizes="220px"
                   priority={i === 0}
-                  className="h-28 shrink-0 border-b border-secondary/30 pointer-events-none"
+                  className="h-28 shrink-0 border-b border-line pointer-events-none"
                 />
                 <div className="flex flex-col gap-2 p-4">
                   <h3 className="font-display text-base font-semibold leading-tight text-foreground">

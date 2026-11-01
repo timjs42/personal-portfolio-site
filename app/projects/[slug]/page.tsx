@@ -53,7 +53,7 @@ export default async function ProjectDetail({
         project={project}
         sizes="(min-width: 768px) 720px, 100vw"
         priority
-        className="aspect-16/10 rounded-2xl border border-secondary/30 mb-8"
+        className="aspect-16/10 rounded-2xl border border-line mb-8"
       />
 
       <p className="text-primary text-lg mb-8">{project.description}</p>
@@ -73,14 +73,14 @@ export default async function ProjectDetail({
           href={project.githubUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="h-12 px-6 flex items-center justify-center rounded-full border border-secondary/30 text-foreground font-medium hover:border-accent transition-colors"
+          className="h-12 px-6 flex items-center justify-center rounded-full border border-line text-foreground font-medium hover:border-accent transition-colors"
         >
           View code
         </a>
       </div>
 
       {caseStudy && (
-        <div className="mt-16 flex flex-col gap-12 border-t border-secondary/30 pt-12">
+        <div className="mt-16 flex flex-col gap-12 border-t border-line pt-12">
           <CaseStudySection title="The problem">
             <p className="text-primary leading-relaxed">{caseStudy.problem}</p>
           </CaseStudySection>

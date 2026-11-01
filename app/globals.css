@@ -22,6 +22,8 @@
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
+  /* Hairline borders and dividers; tune contrast here. */
+  --color-line: color-mix(in oklab, var(--secondary) 55%, transparent);
   --font-sans: var(--font-geist-sans);
   --font-display: var(--font-space-grotesk);
   --font-mono: var(--font-jetbrains-mono);

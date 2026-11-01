@@ -150,7 +150,7 @@ function ProjectBrowserView({
 
         <div
           id="project-filters"
-          className={`${filtersOpen ? "block" : "hidden"} lg:block lg:border-r lg:border-secondary/30 lg:pr-6`}
+          className={`${filtersOpen ? "block" : "hidden"} lg:block lg:border-r lg:border-line lg:pr-6`}
         >
           {GROUPS.map((group) => (
             <fieldset key={group.key} className="mt-6">
@@ -239,7 +239,7 @@ function SpecCard({ project }: { project: Project }) {
 
   return (
     <article
-      className="group relative grid grid-cols-[6px_minmax(0,1fr)] overflow-hidden rounded-2xl border border-secondary/30 hover:border-(--dc) hover:-translate-y-1 hover:shadow-[0_0_40px_-12px_var(--dc)] transition-[translate,border-color,box-shadow] duration-signature ease-signature"
+      className="group relative grid grid-cols-[6px_minmax(0,1fr)] overflow-hidden rounded-2xl border border-line hover:border-(--dc) hover:-translate-y-1 hover:shadow-[0_0_40px_-12px_var(--dc)] transition-[translate,border-color,box-shadow] duration-signature ease-signature"
       style={{ "--dc": DOMAIN_COLORS[project.domain] } as CSSProperties}
     >
       <div className="bg-(--dc)" aria-hidden />
@@ -274,7 +274,7 @@ function SpecCard({ project }: { project: Project }) {
           <ProjectThumb
             project={project}
             sizes="(min-width: 768px) 14rem, 100vw"
-            className="aspect-16/10 rounded-lg border border-secondary/30"
+            className="aspect-16/10 rounded-lg border border-line"
           />
         </div>
 
@@ -282,7 +282,7 @@ function SpecCard({ project }: { project: Project }) {
           {project.highlights.map((highlight) => (
             <li
               key={highlight}
-              className="flex items-start gap-2 rounded-lg border border-secondary/30 px-3 py-2 text-xs text-foreground"
+              className="flex items-start gap-2 rounded-lg border border-line px-3 py-2 text-xs text-foreground"
             >
               <span className="mt-1.5 size-1 shrink-0 rounded-full bg-(--dc)" aria-hidden />
               {highlight}
