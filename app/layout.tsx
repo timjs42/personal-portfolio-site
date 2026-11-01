@@ -42,6 +42,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <ViewTransitions>
       <html
         lang="en"
+        data-scroll-behavior="smooth"
         className={`${geistSans.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} h-full antialiased`}
       >
         <body className="min-h-dvh flex flex-col">
