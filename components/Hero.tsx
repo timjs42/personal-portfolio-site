@@ -64,8 +64,8 @@ export default function Hero() {
         />
       </div>
 
-      <div className="relative w-full max-w-4xl mx-auto grid lg:grid-cols-[1.1fr_1fr] gap-10 items-stretch">
-        <div className="flex flex-col items-center text-center justify-between max-w-md mx-auto lg:items-start lg:text-left">
+      <div className="relative w-full max-w-3xl mx-auto lg:px-6 grid lg:grid-cols-[1.1fr_1fr] gap-10 items-stretch">
+        <div className="flex flex-col items-center text-center justify-between max-w-md mx-auto lg:mx-0 lg:items-start lg:text-left">
           <div className="flex flex-col items-center gap-8 lg:items-start">
             <div className="flex flex-col gap-4">
               <p style={enter(200, 16, 16)} className="hero-enter hero-text-shadow font-mono text-sm font-medium text-primary">
