@@ -20,6 +20,7 @@ import {
 } from "react-icons/si";
 import { ArrowUpRight, Brain, Code, Globe, SlidersHorizontal } from "lucide-react";
 import { projects, type Domain, type Project } from "@/lib/projects";
+import ProjectThumb, { DOMAIN_COLORS } from "@/components/ProjectThumb";
 
 const TECH_ICONS: Record<string, ElementType> = {
   HTML: SiHtml5,
@@ -36,12 +37,6 @@ const TECH_ICONS: Record<string, ElementType> = {
   PostgreSQL: SiPostgresql,
   Supabase: SiSupabase,
   "Naive Bayes": Brain,
-};
-
-const DOMAIN_COLORS: Record<Domain, string> = {
-  Web: "var(--domain-web)",
-  Data: "var(--domain-data)",
-  ML: "var(--domain-ml)",
 };
 
 type Group = {
@@ -274,7 +269,14 @@ function SpecCard({ project }: { project: Project }) {
             {project.title}
           </Link>
         </h2>
-        <p className="text-primary text-sm leading-relaxed mb-5">{project.description}</p>
+        <div className="grid gap-4 mb-5 md:grid-cols-[minmax(0,1fr)_14rem]">
+          <p className="text-primary text-sm leading-relaxed">{project.description}</p>
+          <ProjectThumb
+            project={project}
+            sizes="(min-width: 768px) 14rem, 100vw"
+            className="aspect-16/10 rounded-lg border border-secondary/30"
+          />
+        </div>
 
         <ul className="grid gap-2 sm:grid-cols-3 mb-5">
           {project.highlights.map((highlight) => (

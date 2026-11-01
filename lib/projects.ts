@@ -6,6 +6,8 @@ export type Project = {
   description: string;
   liveUrl?: string;
   githubUrl: string;
+  // Screenshot path under /public, e.g. "/projects/uptime-monitor.png".
+  image?: string;
   domain: Domain;
   // Filterable on the projects page.
   languages: string[];

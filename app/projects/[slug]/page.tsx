@@ -1,6 +1,7 @@
 import { Link } from "next-view-transitions";
 import { notFound } from "next/navigation";
 import { projects, stackOf } from "@/lib/projects";
+import ProjectThumb from "@/components/ProjectThumb";
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
@@ -44,6 +45,13 @@ export default async function ProjectDetail({
           </span>
         ))}
       </div>
+
+      <ProjectThumb
+        project={project}
+        sizes="(min-width: 768px) 720px, 100vw"
+        priority
+        className="aspect-16/10 rounded-2xl border border-secondary/30 mb-8"
+      />
 
       <p className="text-primary text-lg mb-8">{project.description}</p>
 
