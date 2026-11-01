@@ -1,6 +1,7 @@
 import { Link } from "next-view-transitions";
 import { notFound } from "next/navigation";
 import { projects, stackOf } from "@/lib/projects";
+import { caseStudies } from "@/lib/case-studies";
 import ProjectThumb from "@/components/ProjectThumb";
 
 export function generateStaticParams() {
@@ -18,6 +19,8 @@ export default async function ProjectDetail({
   if (!project) {
     notFound();
   }
+
+  const caseStudy = caseStudies[project.slug];
 
   return (
     <main className="flex-1 px-6 py-16 max-w-3xl mx-auto w-full">
@@ -75,6 +78,40 @@ export default async function ProjectDetail({
           View code
         </a>
       </div>
+
+      {caseStudy && (
+        <div className="mt-16 flex flex-col gap-12 border-t border-secondary/30 pt-12">
+          <CaseStudySection title="The problem">
+            <p className="text-primary leading-relaxed">{caseStudy.problem}</p>
+          </CaseStudySection>
+          <CaseStudyList title="Key decisions" items={caseStudy.decisions} />
+          <CaseStudyList title="Challenges" items={caseStudy.challenges} />
+          <CaseStudyList title="Results" items={caseStudy.results} />
+          <CaseStudyList title="What's next" items={caseStudy.next} />
+        </div>
+      )}
     </main>
+  );
+}
+
+function CaseStudySection({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <section>
+      <h2 className="font-display text-xl font-semibold text-foreground mb-4">{title}</h2>
+      {children}
+    </section>
+  );
+}
+
+function CaseStudyList({ title, items }: { title: string; items: string[] }) {
+  if (items.length === 0) return null;
+  return (
+    <CaseStudySection title={title}>
+      <ul className="flex flex-col gap-3 text-primary leading-relaxed list-disc pl-5 marker:text-accent">
+        {items.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+    </CaseStudySection>
   );
 }

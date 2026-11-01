@@ -6,15 +6,11 @@ export type Project = {
   description: string;
   liveUrl?: string;
   githubUrl: string;
-  // Screenshot path under /public, e.g. "/projects/uptime-monitor.png".
   image?: string;
   domain: Domain;
-  // Filterable on the projects page.
   languages: string[];
   frameworks: string[];
-  // Shown on cards, but not offered as filters.
   tools: string[];
-  // Three short points for the spec-sheet card.
   highlights: [string, string, string];
 };
 
@@ -48,14 +44,14 @@ export const projects: Project[] = [
     slug: "uptime-monitor",
     title: "Uptime Monitor",
     description:
-      "A full-stack uptime monitoring dashboard that checks a set of websites every 5 minutes, records HTTP status and response times, and tracks downtime incidents over time. Built with Next.js and PostgreSQL via Supabase, using Supabase Cron to trigger scheduled health checks.",
+      "A full-stack uptime monitoring dashboard that checks a set of websites every 5 minutes, records HTTP status and response times, and shows uptime and latency history. Built with Next.js and PostgreSQL via Supabase, using Supabase Cron to trigger scheduled health checks.",
     githubUrl: "https://github.com/timjs42/uptime-monitor",
     liveUrl: "https://uptime-monitor-gamma-three.vercel.app/",
     domain: "Web",
     languages: ["TypeScript"],
     frameworks: ["Next.js", "Tailwind CSS"],
     tools: ["PostgreSQL", "Supabase"],
-    highlights: ["Checks every 5 minutes", "Status and latency logs", "Downtime incident history"],
+    highlights: ["Checks every 5 minutes", "Status and latency logs", "24-hour uptime history"],
   },
   {
     slug: "used-car-deal-finder",
